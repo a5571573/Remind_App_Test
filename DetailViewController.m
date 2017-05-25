@@ -8,11 +8,14 @@
 
 #import "DetailViewController.h"
 #import "ListViewController.h"
+#import "DateViewController.h"
 #import "AppDelegate.h"
 
-@interface DetailViewController ()<UITextFieldDelegate,UITextViewDelegate>
+
+@interface DetailViewController ()<UITextFieldDelegate,UITextViewDelegate,DateViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *titleField;
 @property (weak, nonatomic) IBOutlet UITextView *detailTextView;
+@property (weak, nonatomic) IBOutlet UIButton *dateButton;
 
 @end
 
@@ -63,6 +66,35 @@
     
     [self.navigationController popViewControllerAnimated:YES];
 }
+- (IBAction)dateSelect:(id)sender {
+    
+    DateViewController *dateVC = [self.storyboard instantiateViewControllerWithIdentifier:@"dateViewController"];
+    
+    dateVC.delegate = self;
+    
+    [self presentViewController:dateVC animated:YES completion:nil];
+
+}
+#pragma mark - DateViewControllerDelegate
+-(void)didFinshUpdate:(NSString *)dateString Time:(NSString *)timeString{
+    
+    if(dateString == nil){
+        
+        
+        
+    } else if(timeString == nil){
+        
+        
+        
+    }
+    
+    NSString *buttonTitle = [NSString stringWithFormat:@"%@ %@",dateString,timeString];
+    [self.dateButton setTitle:buttonTitle forState:UIControlStateNormal];
+    
+    
+}
+
+
 #pragma mark - UITextFieldDelegate
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     

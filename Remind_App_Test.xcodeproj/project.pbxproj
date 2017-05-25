@@ -18,6 +18,8 @@
 		4F1C95E51ED667A50011293F /* Remind.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C95E41ED667A50011293F /* Remind.m */; };
 		4F1C95E81ED673AE0011293F /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C95E71ED673AE0011293F /* DetailViewController.m */; };
 		4F1C95ED1ED6D4030011293F /* small-calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F1C95EC1ED6D4030011293F /* small-calendar.png */; };
+		4FD8EB471ED6F6D800945125 /* DateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD8EB461ED6F6D800945125 /* DateViewController.m */; };
+		EC30AE149524FD9A6568BDAF /* Pods_Remind_App_Test.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A76159CA3EEC2EB5F9929470 /* Pods_Remind_App_Test.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +41,11 @@
 		4F1C95E61ED673AE0011293F /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailViewController.h; path = ../DetailViewController.h; sourceTree = "<group>"; };
 		4F1C95E71ED673AE0011293F /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailViewController.m; path = ../DetailViewController.m; sourceTree = "<group>"; };
 		4F1C95EC1ED6D4030011293F /* small-calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "small-calendar.png"; sourceTree = "<group>"; };
+		4FD8EB451ED6F6D800945125 /* DateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DateViewController.h; path = ../DateViewController.h; sourceTree = "<group>"; };
+		4FD8EB461ED6F6D800945125 /* DateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DateViewController.m; path = ../DateViewController.m; sourceTree = "<group>"; };
+		9E8D5BC57864D172528D7E6B /* Pods-Remind_App_Test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Remind_App_Test.release.xcconfig"; path = "Pods/Target Support Files/Pods-Remind_App_Test/Pods-Remind_App_Test.release.xcconfig"; sourceTree = "<group>"; };
+		A76159CA3EEC2EB5F9929470 /* Pods_Remind_App_Test.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Remind_App_Test.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C24B9E19B662A264257E6829 /* Pods-Remind_App_Test.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Remind_App_Test.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Remind_App_Test/Pods-Remind_App_Test.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,17 +53,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC30AE149524FD9A6568BDAF /* Pods_Remind_App_Test.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		256240B89FC142CF1FE731BD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C24B9E19B662A264257E6829 /* Pods-Remind_App_Test.debug.xcconfig */,
+				9E8D5BC57864D172528D7E6B /* Pods-Remind_App_Test.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		4F1C95B71ED663E00011293F = {
 			isa = PBXGroup;
 			children = (
 				4F1C95C21ED663E00011293F /* Remind_App_Test */,
 				4F1C95C11ED663E00011293F /* Products */,
+				256240B89FC142CF1FE731BD /* Pods */,
+				597A6CF984BA8B397EFA3CED /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -77,6 +96,8 @@
 				4F1C95DE1ED6640A0011293F /* ListViewController.m */,
 				4F1C95E61ED673AE0011293F /* DetailViewController.h */,
 				4F1C95E71ED673AE0011293F /* DetailViewController.m */,
+				4FD8EB451ED6F6D800945125 /* DateViewController.h */,
+				4FD8EB461ED6F6D800945125 /* DateViewController.m */,
 				4F1C95E01ED665A80011293F /* RemindTableViewCell.h */,
 				4F1C95E11ED665A80011293F /* RemindTableViewCell.m */,
 				4F1C95E31ED667A50011293F /* Remind.h */,
@@ -108,6 +129,14 @@
 			name = Image;
 			sourceTree = "<group>";
 		};
+		597A6CF984BA8B397EFA3CED /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A76159CA3EEC2EB5F9929470 /* Pods_Remind_App_Test.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -115,9 +144,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4F1C95DA1ED663E00011293F /* Build configuration list for PBXNativeTarget "Remind_App_Test" */;
 			buildPhases = (
+				93BB44E2FC31F00DF3152127 /* [CP] Check Pods Manifest.lock */,
 				4F1C95BC1ED663E00011293F /* Sources */,
 				4F1C95BD1ED663E00011293F /* Frameworks */,
 				4F1C95BE1ED663E00011293F /* Resources */,
+				8F9E8319EF91CE3AAB60FA65 /* [CP] Embed Pods Frameworks */,
+				3104F2FC16CA24E78394A89A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -175,6 +207,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3104F2FC16CA24E78394A89A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Remind_App_Test/Pods-Remind_App_Test-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8F9E8319EF91CE3AAB60FA65 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Remind_App_Test/Pods-Remind_App_Test-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		93BB44E2FC31F00DF3152127 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		4F1C95BC1ED663E00011293F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -184,6 +264,7 @@
 				4F1C95C81ED663E00011293F /* AppDelegate.m in Sources */,
 				4F1C95E21ED665A80011293F /* RemindTableViewCell.m in Sources */,
 				4F1C95D11ED663E00011293F /* Remind_App_Test.xcdatamodeld in Sources */,
+				4FD8EB471ED6F6D800945125 /* DateViewController.m in Sources */,
 				4F1C95DF1ED6640A0011293F /* ListViewController.m in Sources */,
 				4F1C95C51ED663E00011293F /* main.m in Sources */,
 				4F1C95E81ED673AE0011293F /* DetailViewController.m in Sources */,
@@ -306,6 +387,7 @@
 		};
 		4F1C95DB1ED663E00011293F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C24B9E19B662A264257E6829 /* Pods-Remind_App_Test.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Remind_App_Test/Info.plist;
@@ -317,6 +399,7 @@
 		};
 		4F1C95DC1ED663E00011293F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9E8D5BC57864D172528D7E6B /* Pods-Remind_App_Test.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Remind_App_Test/Info.plist;
@@ -345,6 +428,7 @@
 				4F1C95DC1ED663E00011293F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

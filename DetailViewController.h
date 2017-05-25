@@ -17,8 +17,6 @@
 
 @interface DetailViewController : UIViewController
 
-
-
 @property(nonatomic) Remind *remind;
 @property(nonatomic) id<DetailViewControllerDelegate> delegate;
 
