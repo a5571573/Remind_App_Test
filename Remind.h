@@ -14,5 +14,6 @@
 @property NSString *detail;
 @property NSString *date;
 @property NSString *time;
+@property BOOL switchOnOff;
 
 @end

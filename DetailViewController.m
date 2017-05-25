@@ -30,6 +30,8 @@
     
     self.titleField.delegate = self;
     self.detailTextView.delegate = self;
+    self.detailTextView.layer.cornerRadius = 5;
+    
     
     
     
@@ -45,6 +47,7 @@
     
     self.remind.title = self.titleField.text;
     self.remind.detail = self.detailTextView.text;
+    self.remind.switchOnOff = YES;
     
     [self saveToCoredata];
     
@@ -55,6 +58,8 @@
     
 }
 - (IBAction)cancel:(id)sender {
+    
+    [self.delegate didFinshUpdate:self.remind];
     
     [self.navigationController popViewControllerAnimated:YES];
 }

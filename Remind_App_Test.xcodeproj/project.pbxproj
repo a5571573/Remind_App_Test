@@ -17,6 +17,7 @@
 		4F1C95E21ED665A80011293F /* RemindTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C95E11ED665A80011293F /* RemindTableViewCell.m */; };
 		4F1C95E51ED667A50011293F /* Remind.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C95E41ED667A50011293F /* Remind.m */; };
 		4F1C95E81ED673AE0011293F /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C95E71ED673AE0011293F /* DetailViewController.m */; };
+		4F1C95ED1ED6D4030011293F /* small-calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F1C95EC1ED6D4030011293F /* small-calendar.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		4F1C95E41ED667A50011293F /* Remind.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Remind.m; path = ../Remind.m; sourceTree = "<group>"; };
 		4F1C95E61ED673AE0011293F /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailViewController.h; path = ../DetailViewController.h; sourceTree = "<group>"; };
 		4F1C95E71ED673AE0011293F /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailViewController.m; path = ../DetailViewController.m; sourceTree = "<group>"; };
+		4F1C95EC1ED6D4030011293F /* small-calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "small-calendar.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 				4F1C95D41ED663E00011293F /* LaunchScreen.storyboard */,
 				4F1C95D71ED663E00011293F /* Info.plist */,
 				4F1C95CF1ED663E00011293F /* Remind_App_Test.xcdatamodeld */,
+				4F1C95EB1ED6D3D60011293F /* Image */,
 				4F1C95C31ED663E00011293F /* Supporting Files */,
 			);
 			path = Remind_App_Test;
@@ -95,6 +98,14 @@
 				4F1C95C41ED663E00011293F /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4F1C95EB1ED6D3D60011293F /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				4F1C95EC1ED6D4030011293F /* small-calendar.png */,
+			);
+			name = Image;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -156,6 +167,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F1C95D61ED663E00011293F /* LaunchScreen.storyboard in Resources */,
+				4F1C95ED1ED6D4030011293F /* small-calendar.png in Resources */,
 				4F1C95D31ED663E00011293F /* Assets.xcassets in Resources */,
 				4F1C95CE1ED663E00011293F /* Main.storyboard in Resources */,
 			);

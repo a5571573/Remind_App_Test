@@ -14,5 +14,6 @@
 @dynamic detail;
 @dynamic date;
 @dynamic time;
+@dynamic switchOnOff;
 
 @end
