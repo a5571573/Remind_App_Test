@@ -9,11 +9,14 @@
 /* Begin PBXBuildFile section */
 		4F1C95C51ED663E00011293F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C95C41ED663E00011293F /* main.m */; };
 		4F1C95C81ED663E00011293F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C95C71ED663E00011293F /* AppDelegate.m */; };
-		4F1C95CB1ED663E00011293F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C95CA1ED663E00011293F /* ViewController.m */; };
 		4F1C95CE1ED663E00011293F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4F1C95CC1ED663E00011293F /* Main.storyboard */; };
 		4F1C95D11ED663E00011293F /* Remind_App_Test.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C95CF1ED663E00011293F /* Remind_App_Test.xcdatamodeld */; };
 		4F1C95D31ED663E00011293F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F1C95D21ED663E00011293F /* Assets.xcassets */; };
 		4F1C95D61ED663E00011293F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4F1C95D41ED663E00011293F /* LaunchScreen.storyboard */; };
+		4F1C95DF1ED6640A0011293F /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C95DE1ED6640A0011293F /* ListViewController.m */; };
+		4F1C95E21ED665A80011293F /* RemindTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C95E11ED665A80011293F /* RemindTableViewCell.m */; };
+		4F1C95E51ED667A50011293F /* Remind.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C95E41ED667A50011293F /* Remind.m */; };
+		4F1C95E81ED673AE0011293F /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C95E71ED673AE0011293F /* DetailViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,13 +24,19 @@
 		4F1C95C41ED663E00011293F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4F1C95C61ED663E00011293F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4F1C95C71ED663E00011293F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		4F1C95C91ED663E00011293F /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		4F1C95CA1ED663E00011293F /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		4F1C95CD1ED663E00011293F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4F1C95D01ED663E00011293F /* Remind_App_Test.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Remind_App_Test.xcdatamodel; sourceTree = "<group>"; };
 		4F1C95D21ED663E00011293F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4F1C95D51ED663E00011293F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4F1C95D71ED663E00011293F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4F1C95DD1ED6640A0011293F /* ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
+		4F1C95DE1ED6640A0011293F /* ListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
+		4F1C95E01ED665A80011293F /* RemindTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RemindTableViewCell.h; path = ../RemindTableViewCell.h; sourceTree = "<group>"; };
+		4F1C95E11ED665A80011293F /* RemindTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RemindTableViewCell.m; path = ../RemindTableViewCell.m; sourceTree = "<group>"; };
+		4F1C95E31ED667A50011293F /* Remind.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Remind.h; path = ../Remind.h; sourceTree = "<group>"; };
+		4F1C95E41ED667A50011293F /* Remind.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Remind.m; path = ../Remind.m; sourceTree = "<group>"; };
+		4F1C95E61ED673AE0011293F /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailViewController.h; path = ../DetailViewController.h; sourceTree = "<group>"; };
+		4F1C95E71ED673AE0011293F /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailViewController.m; path = ../DetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,8 +71,14 @@
 			children = (
 				4F1C95C61ED663E00011293F /* AppDelegate.h */,
 				4F1C95C71ED663E00011293F /* AppDelegate.m */,
-				4F1C95C91ED663E00011293F /* ViewController.h */,
-				4F1C95CA1ED663E00011293F /* ViewController.m */,
+				4F1C95DD1ED6640A0011293F /* ListViewController.h */,
+				4F1C95DE1ED6640A0011293F /* ListViewController.m */,
+				4F1C95E61ED673AE0011293F /* DetailViewController.h */,
+				4F1C95E71ED673AE0011293F /* DetailViewController.m */,
+				4F1C95E01ED665A80011293F /* RemindTableViewCell.h */,
+				4F1C95E11ED665A80011293F /* RemindTableViewCell.m */,
+				4F1C95E31ED667A50011293F /* Remind.h */,
+				4F1C95E41ED667A50011293F /* Remind.m */,
 				4F1C95CC1ED663E00011293F /* Main.storyboard */,
 				4F1C95D21ED663E00011293F /* Assets.xcassets */,
 				4F1C95D41ED663E00011293F /* LaunchScreen.storyboard */,
@@ -153,10 +168,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F1C95CB1ED663E00011293F /* ViewController.m in Sources */,
+				4F1C95E51ED667A50011293F /* Remind.m in Sources */,
 				4F1C95C81ED663E00011293F /* AppDelegate.m in Sources */,
+				4F1C95E21ED665A80011293F /* RemindTableViewCell.m in Sources */,
 				4F1C95D11ED663E00011293F /* Remind_App_Test.xcdatamodeld in Sources */,
+				4F1C95DF1ED6640A0011293F /* ListViewController.m in Sources */,
 				4F1C95C51ED663E00011293F /* main.m in Sources */,
+				4F1C95E81ED673AE0011293F /* DetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
