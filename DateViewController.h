@@ -10,14 +10,14 @@
 
 @protocol DateViewControllerDelegate <NSObject>
 
--(void) didFinshUpdate:(NSString *)dateString Time:(NSString *)timeString;
+-(void) didFinshUpdate:(NSDate *)date Time:(NSDate *)time;
 
 @end
 
 @interface DateViewController : UIViewController
 
 @property(nonatomic) id<DateViewControllerDelegate>delegate;
-@property(nonatomic) NSString *dateString;
-@property(nonatomic) NSString *timeString;
+@property(nonatomic) NSDate *date;
+@property(nonatomic) NSDate *time;
 
 @end

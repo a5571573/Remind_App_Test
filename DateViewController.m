@@ -9,7 +9,7 @@
 #import "DateViewController.h"
 #import <FSCalendar/FSCalendar.h>
 
-@interface DateViewController ()<FSCalendarDelegate>
+@interface DateViewController ()<FSCalendarDelegate,FSCalendarDataSource>
 
 @property (weak, nonatomic) IBOutlet FSCalendar *calendar;
 @property (weak, nonatomic) IBOutlet UIDatePicker *timePicker;
@@ -23,24 +23,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.calendar.delegate = self;
+    
+    [self.calendar selectDate:self.date scrollToDate:YES];
+    [self.timePicker setDate:self.time animated:YES];
+
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+#pragma mark - Button Action
 - (IBAction)save:(id)sender {
     
-    NSDate *time = self.timePicker.date;
+    self.time = self.timePicker.date;
     
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    
-    [dateFormatter setDateFormat:@"HH:mm a"];
-    
-    self.timeString = [dateFormatter stringFromDate:time];
-    
-    [self.delegate didFinshUpdate:self.dateString Time:self.timeString];
-    
+    [self.delegate didFinshUpdate:self.date Time:self.time];
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -51,10 +51,7 @@
 
 -(void)calendar:(FSCalendar *)calendar didSelectDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition{
     
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    [dateFormatter setDateFormat:@"yyyy/MM/dd"];
-    
-    self.dateString = [dateFormatter stringFromDate:date];
+    self.date = date;
     
 }
 

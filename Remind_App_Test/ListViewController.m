@@ -16,6 +16,7 @@
 @interface ListViewController ()<UITableViewDelegate,UITableViewDataSource,DetailViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+
 @property(nonatomic) NSMutableArray <Remind *>*reminds;
 
 @end
