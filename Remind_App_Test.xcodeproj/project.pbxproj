@@ -17,8 +17,9 @@
 		4F1C95E21ED665A80011293F /* RemindTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C95E11ED665A80011293F /* RemindTableViewCell.m */; };
 		4F1C95E51ED667A50011293F /* Remind.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C95E41ED667A50011293F /* Remind.m */; };
 		4F1C95E81ED673AE0011293F /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C95E71ED673AE0011293F /* DetailViewController.m */; };
-		4F1C95ED1ED6D4030011293F /* small-calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F1C95EC1ED6D4030011293F /* small-calendar.png */; };
-		4F3B729E1ED7CD280055F2C3 /* travel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F3B729D1ED7CD280055F2C3 /* travel@2x.png */; };
+		4F20DD6E1EDEB87300C42FFB /* calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F20DD6C1EDEB87300C42FFB /* calendar.png */; };
+		4F20DD711EDEC01200C42FFB /* cancel-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F20DD6F1EDEC01200C42FFB /* cancel-button.png */; };
+		4F20DD721EDEC01200C42FFB /* correct-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F20DD701EDEC01200C42FFB /* correct-button.png */; };
 		4FD8EB471ED6F6D800945125 /* DateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD8EB461ED6F6D800945125 /* DateViewController.m */; };
 		EC30AE149524FD9A6568BDAF /* Pods_Remind_App_Test.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A76159CA3EEC2EB5F9929470 /* Pods_Remind_App_Test.framework */; };
 /* End PBXBuildFile section */
@@ -41,8 +42,9 @@
 		4F1C95E41ED667A50011293F /* Remind.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Remind.m; path = ../Remind.m; sourceTree = "<group>"; };
 		4F1C95E61ED673AE0011293F /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailViewController.h; path = ../DetailViewController.h; sourceTree = "<group>"; };
 		4F1C95E71ED673AE0011293F /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailViewController.m; path = ../DetailViewController.m; sourceTree = "<group>"; };
-		4F1C95EC1ED6D4030011293F /* small-calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "small-calendar.png"; sourceTree = "<group>"; };
-		4F3B729D1ED7CD280055F2C3 /* travel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "travel@2x.png"; sourceTree = "<group>"; };
+		4F20DD6C1EDEB87300C42FFB /* calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calendar.png; sourceTree = "<group>"; };
+		4F20DD6F1EDEC01200C42FFB /* cancel-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cancel-button.png"; sourceTree = "<group>"; };
+		4F20DD701EDEC01200C42FFB /* correct-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "correct-button.png"; sourceTree = "<group>"; };
 		4FD8EB451ED6F6D800945125 /* DateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DateViewController.h; path = ../DateViewController.h; sourceTree = "<group>"; };
 		4FD8EB461ED6F6D800945125 /* DateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DateViewController.m; path = ../DateViewController.m; sourceTree = "<group>"; };
 		9E8D5BC57864D172528D7E6B /* Pods-Remind_App_Test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Remind_App_Test.release.xcconfig"; path = "Pods/Target Support Files/Pods-Remind_App_Test/Pods-Remind_App_Test.release.xcconfig"; sourceTree = "<group>"; };
@@ -126,8 +128,9 @@
 		4F1C95EB1ED6D3D60011293F /* Image */ = {
 			isa = PBXGroup;
 			children = (
-				4F3B729D1ED7CD280055F2C3 /* travel@2x.png */,
-				4F1C95EC1ED6D4030011293F /* small-calendar.png */,
+				4F20DD6F1EDEC01200C42FFB /* cancel-button.png */,
+				4F20DD701EDEC01200C42FFB /* correct-button.png */,
+				4F20DD6C1EDEB87300C42FFB /* calendar.png */,
 			);
 			name = Image;
 			sourceTree = "<group>";
@@ -201,11 +204,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F20DD721EDEC01200C42FFB /* correct-button.png in Resources */,
+				4F20DD711EDEC01200C42FFB /* cancel-button.png in Resources */,
 				4F1C95D61ED663E00011293F /* LaunchScreen.storyboard in Resources */,
-				4F1C95ED1ED6D4030011293F /* small-calendar.png in Resources */,
+				4F20DD6E1EDEB87300C42FFB /* calendar.png in Resources */,
 				4F1C95D31ED663E00011293F /* Assets.xcassets in Resources */,
 				4F1C95CE1ED663E00011293F /* Main.storyboard in Resources */,
-				4F3B729E1ED7CD280055F2C3 /* travel@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

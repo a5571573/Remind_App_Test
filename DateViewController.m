@@ -10,6 +10,8 @@
 #import <FSCalendar/FSCalendar.h>
 
 @interface DateViewController ()<FSCalendarDelegate,FSCalendarDataSource>
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 
 @property (weak, nonatomic) IBOutlet FSCalendar *calendar;
 @property (weak, nonatomic) IBOutlet UIDatePicker *timePicker;
@@ -24,6 +26,14 @@
     [super viewDidLoad];
     self.calendar.delegate = self;
     
+//    self.dateLabel.layer.cornerRadius = 10.0;
+//    self.dateLabel.layer.masksToBounds = YES;
+//    
+//    self.timeLabel.layer.cornerRadius = 10.0;
+//    self.timeLabel.layer.masksToBounds = YES;
+    
+    self.timePicker.backgroundColor = [UIColor colorWithRed:(231/255.0) green:(226/255.0) blue:(218/255.0) alpha:1.0];
+   
     [self.calendar selectDate:self.date scrollToDate:YES];
     [self.timePicker setDate:self.time animated:YES];
 

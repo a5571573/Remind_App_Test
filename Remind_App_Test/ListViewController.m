@@ -78,6 +78,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
+    self.navigationItem.leftBarButtonItem.tintColor = [UIColor colorWithRed:(255/255.0) green:(255/255.0) blue:(255/255.0) alpha:1.0];
     NSLog(@"%@",NSHomeDirectory());
 }
 

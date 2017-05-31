@@ -41,11 +41,18 @@
     
     self.titleField.delegate = self;
     self.detailTextView.delegate = self;
-    self.detailTextView.layer.cornerRadius = 5;
+    self.detailTextView.layer.cornerRadius = 5.0;
     
     self.titleField.text = self.remind.title;
     self.detailTextView.text = self.remind.detail;
     
+    
+    self.imageView.layer.borderWidth = 5.0;
+    self.imageView.layer.borderColor = [[UIColor colorWithRed:(71/255.0) green:(65/255.0) blue:(67/255.0) alpha:1.0]CGColor];
+    self.imageView.layer.cornerRadius = 5.0;
+    
+    self.dateLabel.layer.cornerRadius = 5.0;
+    self.dateLabel.layer.masksToBounds = YES;
     [self.dateLabel setText:[NSString stringWithFormat:@"%@ %@",self.remind.date,self.remind.time]];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
@@ -70,9 +77,6 @@
         NSLog(@"%@",self.timeString);
         
     }
-    
-    
-    
     // Do any additional setup after loading the view.
 }
 
@@ -83,20 +87,35 @@
 #pragma mark - Button Action
 - (IBAction)save:(id)sender {
     
-    self.remind.title = self.titleField.text;
-    self.remind.detail = self.detailTextView.text;
+    if ([self.titleField.text isEqualToString:@""]||[self.dateLabel.text isEqualToString:@"請選取時間"]) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"警告" message:@"請輸入標題和時間" preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            return ;
+        }];
+        
+        [alert addAction:cancel];
+        
+        [self presentViewController:alert animated:YES completion:nil];
+    } else {
+        
+        self.remind.title = self.titleField.text;
+        self.remind.detail = self.detailTextView.text;
+        
+        self.remind.date = self.dateString;
+        self.remind.time = self.timeString;
+        
+        self.remind.switchOnOff = YES;
+        
+        
+        [self saveToCoredata];
+        
+        [self.delegate didFinshUpdate:self.remind];
+        
+        [self.navigationController popViewControllerAnimated:YES];
+    }
     
-    self.remind.date = self.dateString;
-    self.remind.time = self.timeString;
     
-    self.remind.switchOnOff = YES;
-    
-    
-    [self saveToCoredata];
-    
-    [self.delegate didFinshUpdate:self.remind];
-    
-    [self.navigationController popViewControllerAnimated:YES];
     
 }
 - (IBAction)cancel:(id)sender {
@@ -129,10 +148,43 @@
 
 - (IBAction)camera:(id)sender {
     
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"選取方式" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *takePhoto = [UIAlertAction actionWithTitle:@"相機" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self takePhoto];
+    }];
+    
+    UIAlertAction *photoLibrary = [UIAlertAction actionWithTitle:@"相簿" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self photoLibrary];
+    }];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        return ;
+    }];
+    
+    [cancel setValue:[UIColor redColor] forKey:@"titleTextColor"];
+    
+    [alert addAction:takePhoto];
+    [alert addAction:photoLibrary];
+    [alert addAction:cancel];
+    [self presentViewController:alert animated:YES completion:nil];
+
+}
+-(void) takePhoto{
+    
     UIImagePickerController *pickerController = [[UIImagePickerController alloc]init];
-    pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    pickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+    pickerController.cameraDevice = UIImagePickerControllerCameraDeviceRear;
     pickerController.delegate = self;
     [self presentViewController:pickerController animated:YES completion:nil];
+}
+-(void) photoLibrary{
+    
+    UIImagePickerController *pickerController = [[UIImagePickerController alloc]init];
+    pickerController.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+    pickerController.delegate = self;
+    [self presentViewController:pickerController animated:YES completion:nil];
+    
 }
 #pragma mark - UIImagePickerControllerDelegate
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
