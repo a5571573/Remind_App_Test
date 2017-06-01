@@ -13,11 +13,12 @@
 #import "AppDelegate.h"
 @import CoreData;
 
-@interface ListViewController ()<UITableViewDelegate,UITableViewDataSource,DetailViewControllerDelegate>
+@interface ListViewController ()<UITableViewDelegate,UITableViewDataSource,DetailViewControllerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property(nonatomic) NSMutableArray <Remind *>*reminds;
+@property(nonatomic) Remind *photoRemind;
 
 @end
 
@@ -138,10 +139,82 @@
     cell.dateLabel.text = remind.date;
     cell.timeLabel.text = remind.time;
     
-    cell.imageView.image = [remind thumbnailImage];
+    cell.imageButton.remindData = remind;
+    
+    [cell.imageButton setImage:[remind thumbnailImage] forState:UIControlStateNormal];
+    if ([remind thumbnailImage] == nil) {
+        [cell.imageButton setImage:[UIImage imageNamed:@"circle.png"] forState:UIControlStateNormal];
+    }
     
     return cell;
 }
+
+#pragma mark - Push the thumbnailImage Changed Image
+- (IBAction)photoChanged:(ImageButton *)sender {
+    
+    self.photoRemind = sender.remindData;
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"選取方式" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        
+        UIAlertAction *takePhoto = [UIAlertAction actionWithTitle:@"相機" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self takePhoto];
+        }];
+        [alert addAction:takePhoto];
+    }
+    
+    UIAlertAction *photoLibrary = [UIAlertAction actionWithTitle:@"相簿" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self photoLibrary];
+    }];
+    [alert addAction:photoLibrary];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        return ;
+    }];
+    [cancel setValue:[UIColor redColor] forKey:@"titleTextColor"];
+    
+    
+    [alert addAction:cancel];
+    [self presentViewController:alert animated:YES completion:nil];
+    
+}
+
+-(void) takePhoto{
+    UIImagePickerController *pickerController =[[UIImagePickerController alloc]init];
+    pickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+    pickerController.showsCameraControls = YES;
+    pickerController.delegate = self;
+    [self presentViewController:pickerController animated:YES completion:nil];
+}
+
+-(void) photoLibrary{
+    
+    UIImagePickerController *pickerController = [[UIImagePickerController alloc]init];
+    pickerController.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+    pickerController.delegate = self;
+    [self presentViewController:pickerController animated:YES completion:nil];
+}
+#pragma mark - UIImagePickerControllerDelegate
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
+    
+    UIImage *image = info[UIImagePickerControllerOriginalImage];
+    
+    NSString *library = [NSHomeDirectory() stringByAppendingPathComponent:@"Library"];
+    NSString *photos = [library stringByAppendingPathComponent:@"Photos"];
+    NSString *filePath = [photos stringByAppendingPathComponent:self.photoRemind.imageFileName];
+    
+    NSData *imageData = UIImageJPEGRepresentation(image, 1);
+    
+    [imageData writeToFile:filePath atomically:YES];
+    
+    NSInteger index = [self.reminds indexOfObject:self.photoRemind];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 #pragma mark - SetTagWhenCellCanged
 
 -(void)setTagWhenCellCanged{
@@ -185,7 +258,7 @@
     [self saveToCoredata];
     
 }
-
+// 資料傳遞 ListViewController -> DetailViewController
 #pragma mark - PrepareForSegue
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -220,10 +293,8 @@
         detailVC.delegate = self;
         
     }
-    
-    
 }
-
+// 資料傳遞 DetailViewController -> ListViewController
 #pragma mark - didFinshUpdate
 -(void)didFinshUpdate:(Remind *)remind{
     
@@ -243,13 +314,5 @@
         [self.tableView reloadData];
         
     }
-    
-    
-    
-    
-    
 }
-
-
-
 @end

@@ -20,6 +20,8 @@
 		4F20DD6E1EDEB87300C42FFB /* calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F20DD6C1EDEB87300C42FFB /* calendar.png */; };
 		4F20DD711EDEC01200C42FFB /* cancel-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F20DD6F1EDEC01200C42FFB /* cancel-button.png */; };
 		4F20DD721EDEC01200C42FFB /* correct-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F20DD701EDEC01200C42FFB /* correct-button.png */; };
+		4F2594841EE016E800415736 /* circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F2594831EE016E800415736 /* circle.png */; };
+		4F2594871EE0331100415736 /* ImageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2594861EE0331100415736 /* ImageButton.m */; };
 		4FD8EB471ED6F6D800945125 /* DateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD8EB461ED6F6D800945125 /* DateViewController.m */; };
 		EC30AE149524FD9A6568BDAF /* Pods_Remind_App_Test.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A76159CA3EEC2EB5F9929470 /* Pods_Remind_App_Test.framework */; };
 /* End PBXBuildFile section */
@@ -45,6 +47,9 @@
 		4F20DD6C1EDEB87300C42FFB /* calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calendar.png; sourceTree = "<group>"; };
 		4F20DD6F1EDEC01200C42FFB /* cancel-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cancel-button.png"; sourceTree = "<group>"; };
 		4F20DD701EDEC01200C42FFB /* correct-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "correct-button.png"; sourceTree = "<group>"; };
+		4F2594831EE016E800415736 /* circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle.png; sourceTree = "<group>"; };
+		4F2594851EE0331100415736 /* ImageButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageButton.h; path = ../ImageButton.h; sourceTree = "<group>"; };
+		4F2594861EE0331100415736 /* ImageButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageButton.m; path = ../ImageButton.m; sourceTree = "<group>"; };
 		4FD8EB451ED6F6D800945125 /* DateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DateViewController.h; path = ../DateViewController.h; sourceTree = "<group>"; };
 		4FD8EB461ED6F6D800945125 /* DateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DateViewController.m; path = ../DateViewController.m; sourceTree = "<group>"; };
 		9E8D5BC57864D172528D7E6B /* Pods-Remind_App_Test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Remind_App_Test.release.xcconfig"; path = "Pods/Target Support Files/Pods-Remind_App_Test/Pods-Remind_App_Test.release.xcconfig"; sourceTree = "<group>"; };
@@ -106,6 +111,8 @@
 				4F1C95E11ED665A80011293F /* RemindTableViewCell.m */,
 				4F1C95E31ED667A50011293F /* Remind.h */,
 				4F1C95E41ED667A50011293F /* Remind.m */,
+				4F2594851EE0331100415736 /* ImageButton.h */,
+				4F2594861EE0331100415736 /* ImageButton.m */,
 				4F1C95CC1ED663E00011293F /* Main.storyboard */,
 				4F1C95D21ED663E00011293F /* Assets.xcassets */,
 				4F1C95D41ED663E00011293F /* LaunchScreen.storyboard */,
@@ -128,6 +135,7 @@
 		4F1C95EB1ED6D3D60011293F /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				4F2594831EE016E800415736 /* circle.png */,
 				4F20DD6F1EDEC01200C42FFB /* cancel-button.png */,
 				4F20DD701EDEC01200C42FFB /* correct-button.png */,
 				4F20DD6C1EDEB87300C42FFB /* calendar.png */,
@@ -209,6 +217,7 @@
 				4F20DD711EDEC01200C42FFB /* cancel-button.png in Resources */,
 				4F1C95D61ED663E00011293F /* LaunchScreen.storyboard in Resources */,
 				4F20DD6E1EDEB87300C42FFB /* calendar.png in Resources */,
+				4F2594841EE016E800415736 /* circle.png in Resources */,
 				4F1C95D31ED663E00011293F /* Assets.xcassets in Resources */,
 				4F1C95CE1ED663E00011293F /* Main.storyboard in Resources */,
 			);
@@ -275,6 +284,7 @@
 				4F1C95D11ED663E00011293F /* Remind_App_Test.xcdatamodeld in Sources */,
 				4FD8EB471ED6F6D800945125 /* DateViewController.m in Sources */,
 				4F1C95DF1ED6640A0011293F /* ListViewController.m in Sources */,
+				4F2594871EE0331100415736 /* ImageButton.m in Sources */,
 				4F1C95C51ED663E00011293F /* main.m in Sources */,
 				4F1C95E81ED673AE0011293F /* DetailViewController.m in Sources */,
 			);

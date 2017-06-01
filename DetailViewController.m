@@ -23,7 +23,7 @@
 @property(nonatomic) NSDate *pickerDate;
 @property(nonatomic) NSString *dateString;
 @property(nonatomic) NSString *timeString;
-@property(nonatomic) BOOL isNewImage;
+
 
 @end
 
@@ -57,7 +57,7 @@
     [self.dateLabel setText:[NSString stringWithFormat:@"%@ %@",self.remind.date,self.remind.time]];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    
+
     if (self.remind.date == nil && self.remind.time == nil) {
         [self.dateLabel setText:@"請選取時間"];
     }
@@ -87,10 +87,7 @@
 }
 #pragma mark - Button Action
 - (IBAction)save:(id)sender {
-    
-    
-    
-    
+    // 若title跟時間日期未填入，會跳出alert警告使用者
     if ([self.titleField.text isEqualToString:@""]||[self.dateLabel.text isEqualToString:@"請選取時間"]) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"注意" message:@"請輸入標題和時間" preferredStyle:UIAlertControllerStyleAlert];
         
@@ -103,22 +100,14 @@
         [self presentViewController:alert animated:YES completion:nil];
     } else {
         
-        if (self.isNewImage) {
-            
-            NSString *library = [NSHomeDirectory() stringByAppendingPathComponent:@"Library"];
-            NSString *photos = [library stringByAppendingPathComponent:@"Photos"];
-            NSFileManager *fileManager = [NSFileManager defaultManager];
-            if(![fileManager fileExistsAtPath:photos]){
-                [fileManager createDirectoryAtPath:photos withIntermediateDirectories:YES attributes:nil error:nil];
-            }
-            self.remind.imageFileName= [NSString stringWithFormat:@"%@.jpg",self.remind.remindID];
-            NSString *filePath = [photos stringByAppendingPathComponent:self.remind.imageFileName];
-            NSData *imageData = UIImageJPEGRepresentation(self.imageView.image, 1);
-            
-            [imageData writeToFile:filePath atomically:YES];
-            
-        }
+        NSData *imageData = UIImageJPEGRepresentation(self.imageView.image, 1);
+        NSString *library = [NSHomeDirectory() stringByAppendingPathComponent:@"Library"];
+        NSString *photos = [library stringByAppendingPathComponent:@"Photos"];
+        NSString *filePath = [photos stringByAppendingPathComponent:self.remind.imageFileName];
         
+        [imageData writeToFile:filePath atomically:YES];
+        // 將檔案寫進相簿裡儲存
+        //UIImageWriteToSavedPhotosAlbum(self.imageView.image, nil, nil, nil);
         
         self.remind.title = self.titleField.text;
         self.remind.detail = self.detailTextView.text;
@@ -171,31 +160,34 @@
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"選取方式" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
-    UIAlertAction *takePhoto = [UIAlertAction actionWithTitle:@"相機" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self takePhoto];
-    }];
-    
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        
+        UIAlertAction *takePhoto = [UIAlertAction actionWithTitle:@"相機" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self takePhoto];
+        }];
+        [alert addAction:takePhoto];
+    }
+
     UIAlertAction *photoLibrary = [UIAlertAction actionWithTitle:@"相簿" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self photoLibrary];
     }];
+    [alert addAction:photoLibrary];
     
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         return ;
     }];
-    
     [cancel setValue:[UIColor redColor] forKey:@"titleTextColor"];
+
     
-    [alert addAction:takePhoto];
-    [alert addAction:photoLibrary];
     [alert addAction:cancel];
     [self presentViewController:alert animated:YES completion:nil];
-    
 }
+#pragma mark - Camera Methods
 -(void) takePhoto{
     
     UIImagePickerController *pickerController = [[UIImagePickerController alloc]init];
     pickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-    pickerController.cameraDevice = UIImagePickerControllerCameraDeviceRear;
+    pickerController.showsCameraControls = YES;
     pickerController.delegate = self;
     [self presentViewController:pickerController animated:YES completion:nil];
 }
@@ -212,11 +204,10 @@
     
     UIImage *image = info[UIImagePickerControllerOriginalImage];
     
-    self.isNewImage = YES;
     self.imageView.image = image;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
+// 資料傳遞 DateViewController -> DetailViewController
 #pragma mark - DateViewControllerDelegate
 -(void)didFinshUpdate:(NSDate *)date Time:(NSDate *)time{
     
@@ -241,7 +232,7 @@
     [self.dateLabel setText:[NSString stringWithFormat:@"%@ %@",self.dateString,self.timeString]];
     
 }
-
+// 設定TextField的輸入換行
 #pragma mark - UITextFieldDelegate
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     
@@ -249,7 +240,7 @@
     return YES;
     
 }
-
+// 設定TextView的輸入換行
 #pragma mark - UITextViewDelegate
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {

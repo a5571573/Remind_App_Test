@@ -7,12 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ImageButton.h"
 @interface RemindTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *detailLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UISwitch *switchButton;
+@property (weak, nonatomic) IBOutlet ImageButton *imageButton;
+
+
 
 @end
