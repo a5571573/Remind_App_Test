@@ -3,11 +3,13 @@
     <entity name="Remind" representedClassName="Remind" syncable="YES">
         <attribute name="date" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="detail" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageFileName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="remindID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="switchOnOff" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Remind" positionX="-63" positionY="-18" width="128" height="118"/>
+        <element name="Remind" positionX="-63" positionY="-18" width="128" height="150"/>
     </elements>
 </model>

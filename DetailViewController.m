@@ -23,6 +23,7 @@
 @property(nonatomic) NSDate *pickerDate;
 @property(nonatomic) NSString *dateString;
 @property(nonatomic) NSString *timeString;
+@property(nonatomic) BOOL isNewImage;
 
 @end
 
@@ -45,7 +46,7 @@
     
     self.titleField.text = self.remind.title;
     self.detailTextView.text = self.remind.detail;
-    
+    self.imageView.image = [self.remind image];
     
     self.imageView.layer.borderWidth = 5.0;
     self.imageView.layer.borderColor = [[UIColor colorWithRed:(71/255.0) green:(65/255.0) blue:(67/255.0) alpha:1.0]CGColor];
@@ -87,8 +88,11 @@
 #pragma mark - Button Action
 - (IBAction)save:(id)sender {
     
+    
+    
+    
     if ([self.titleField.text isEqualToString:@""]||[self.dateLabel.text isEqualToString:@"請選取時間"]) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"警告" message:@"請輸入標題和時間" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"注意" message:@"請輸入標題和時間" preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             return ;
@@ -98,6 +102,23 @@
         
         [self presentViewController:alert animated:YES completion:nil];
     } else {
+        
+        if (self.isNewImage) {
+            
+            NSString *library = [NSHomeDirectory() stringByAppendingPathComponent:@"Library"];
+            NSString *photos = [library stringByAppendingPathComponent:@"Photos"];
+            NSFileManager *fileManager = [NSFileManager defaultManager];
+            if(![fileManager fileExistsAtPath:photos]){
+                [fileManager createDirectoryAtPath:photos withIntermediateDirectories:YES attributes:nil error:nil];
+            }
+            self.remind.imageFileName= [NSString stringWithFormat:@"%@.jpg",self.remind.remindID];
+            NSString *filePath = [photos stringByAppendingPathComponent:self.remind.imageFileName];
+            NSData *imageData = UIImageJPEGRepresentation(self.imageView.image, 1);
+            
+            [imageData writeToFile:filePath atomically:YES];
+            
+        }
+        
         
         self.remind.title = self.titleField.text;
         self.remind.detail = self.detailTextView.text;
@@ -168,7 +189,7 @@
     [alert addAction:photoLibrary];
     [alert addAction:cancel];
     [self presentViewController:alert animated:YES completion:nil];
-
+    
 }
 -(void) takePhoto{
     
@@ -190,6 +211,8 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
     
     UIImage *image = info[UIImagePickerControllerOriginalImage];
+    
+    self.isNewImage = YES;
     self.imageView.image = image;
     [self dismissViewControllerAnimated:YES completion:nil];
 }

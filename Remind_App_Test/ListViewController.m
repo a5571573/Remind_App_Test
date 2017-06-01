@@ -42,7 +42,7 @@
     NSManagedObjectContext *context = [appDelegate persistentContainer].viewContext;
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]initWithEntityName:@"Remind"];
-    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES];
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES];
     
     [fetchRequest setSortDescriptors:@[sortDescriptor]];
     [context executeRequest:fetchRequest error:nil];
@@ -80,6 +80,8 @@
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor colorWithRed:(255/255.0) green:(255/255.0) blue:(255/255.0) alpha:1.0];
     NSLog(@"%@",NSHomeDirectory());
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -99,6 +101,7 @@
     if(editingStyle == UITableViewCellEditingStyleDelete){
         
         Remind *remind = self.reminds[indexPath.row];
+        [remind removeImageModel];
         [self.reminds removeObject:remind];
         
         [self deleteCoredata:remind];
@@ -134,6 +137,8 @@
     cell.detailLabel.text = remind.detail;
     cell.dateLabel.text = remind.date;
     cell.timeLabel.text = remind.time;
+    
+    cell.imageView.image = [remind thumbnailImage];
     
     return cell;
 }

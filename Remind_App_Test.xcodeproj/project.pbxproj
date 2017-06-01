@@ -177,6 +177,7 @@
 				TargetAttributes = {
 					4F1C95BF1ED663E00011293F = {
 						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = DTU64B97KN;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -398,6 +399,7 @@
 			baseConfigurationReference = C24B9E19B662A264257E6829 /* Pods-Remind_App_Test.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = DTU64B97KN;
 				INFOPLIST_FILE = Remind_App_Test/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "YuYu-chun.Remind-App-Test";
@@ -410,6 +412,7 @@
 			baseConfigurationReference = 9E8D5BC57864D172528D7E6B /* Pods-Remind_App_Test.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = DTU64B97KN;
 				INFOPLIST_FILE = Remind_App_Test/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "YuYu-chun.Remind-App-Test";
