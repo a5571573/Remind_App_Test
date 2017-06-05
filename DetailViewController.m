@@ -11,6 +11,8 @@
 #import "DateViewController.h"
 #import "AppDelegate.h"
 
+@import Photos;
+
 
 @interface DetailViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate,UITextViewDelegate,DateViewControllerDelegate>
 
@@ -23,6 +25,7 @@
 @property(nonatomic) NSDate *pickerDate;
 @property(nonatomic) NSString *dateString;
 @property(nonatomic) NSString *timeString;
+@property(nonatomic) BOOL pickerType;
 
 
 @end
@@ -107,8 +110,23 @@
         
         [imageData writeToFile:filePath atomically:YES];
         // 將檔案寫進相簿裡儲存
-        //UIImageWriteToSavedPhotosAlbum(self.imageView.image, nil, nil, nil);
-        
+        if (self.pickerType) {
+            
+            PHPhotoLibrary *photoLibrary = [PHPhotoLibrary sharedPhotoLibrary];
+            
+            [photoLibrary performChanges:^{
+                
+                [PHAssetChangeRequest creationRequestForAssetFromImage:self.imageView.image];
+                
+            } completionHandler:^(BOOL success, NSError * _Nullable error) {
+                if (success) {
+                    NSLog(@"success");
+                } else {
+                    NSLog(@"Error : %@",error);
+                }
+            }];
+        }
+    
         self.remind.title = self.titleField.text;
         self.remind.detail = self.detailTextView.text;
         
@@ -160,7 +178,7 @@
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"選取方式" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+    if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear] == YES) {
         
         UIAlertAction *takePhoto = [UIAlertAction actionWithTitle:@"相機" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self takePhoto];
@@ -187,8 +205,10 @@
     
     UIImagePickerController *pickerController = [[UIImagePickerController alloc]init];
     pickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+    pickerController.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
     pickerController.showsCameraControls = YES;
     pickerController.delegate = self;
+    self.pickerType = YES;
     [self presentViewController:pickerController animated:YES completion:nil];
 }
 -(void) photoLibrary{
@@ -196,6 +216,7 @@
     UIImagePickerController *pickerController = [[UIImagePickerController alloc]init];
     pickerController.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
     pickerController.delegate = self;
+    self.pickerType = NO;
     [self presentViewController:pickerController animated:YES completion:nil];
     
 }
@@ -205,6 +226,7 @@
     UIImage *image = info[UIImagePickerControllerOriginalImage];
     
     self.imageView.image = image;
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 // 資料傳遞 DateViewController -> DetailViewController

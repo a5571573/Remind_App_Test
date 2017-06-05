@@ -11,6 +11,8 @@
 #import "RemindTableViewCell.h"
 #import "DetailViewController.h"
 #import "AppDelegate.h"
+
+@import Photos;
 @import CoreData;
 
 @interface ListViewController ()<UITableViewDelegate,UITableViewDataSource,DetailViewControllerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
@@ -156,7 +158,7 @@
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"選取方式" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+    if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear] == YES) {
         
         UIAlertAction *takePhoto = [UIAlertAction actionWithTitle:@"相機" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self takePhoto];
@@ -183,6 +185,7 @@
 -(void) takePhoto{
     UIImagePickerController *pickerController =[[UIImagePickerController alloc]init];
     pickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+    pickerController.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
     pickerController.showsCameraControls = YES;
     pickerController.delegate = self;
     [self presentViewController:pickerController animated:YES completion:nil];
@@ -207,6 +210,21 @@
     NSData *imageData = UIImageJPEGRepresentation(image, 1);
     
     [imageData writeToFile:filePath atomically:YES];
+    
+    PHPhotoLibrary *photoLibrary = [PHPhotoLibrary sharedPhotoLibrary];
+    
+    [photoLibrary performChanges:^{
+        
+        [PHAssetChangeRequest creationRequestForAssetFromImage:image];
+        
+    } completionHandler:^(BOOL success, NSError * _Nullable error) {
+        if (success) {
+            NSLog(@"success");
+        } else {
+            NSLog(@"Error : %@",error);
+        }
+    }];
+
     
     NSInteger index = [self.reminds indexOfObject:self.photoRemind];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
