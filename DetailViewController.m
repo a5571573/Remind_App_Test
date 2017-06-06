@@ -12,6 +12,7 @@
 #import "AppDelegate.h"
 
 @import Photos;
+@import UserNotifications;
 
 
 @interface DetailViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate,UITextViewDelegate,DateViewControllerDelegate>
@@ -137,10 +138,42 @@
         
         
         [self saveToCoredata];
-        
         [self.delegate didFinshUpdate:self.remind];
         
         [self.navigationController popViewControllerAnimated:YES];
+        
+        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+        
+        UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc]init];
+        content.title  = [NSString stringWithString:self.titleField.text];
+        if ([self.detailTextView.text isEqualToString:@""]) {
+            content.body = @"Notification";
+        } else{
+           content.body = [NSString stringWithFormat:@"%@",self.detailTextView.text];
+        }
+        content.sound = [UNNotificationSound defaultSound];
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+        [dateFormatter setDateFormat:@"yyyy/MM/dd hh:mm a"];
+        
+        NSDate *date = [dateFormatter dateFromString:[NSString stringWithFormat:@"%@ %@",self.dateString,self.timeString]];
+        //NSDate *correctDate = [NSDate dateWithTimeInterval:60*60*8 sinceDate:date];
+        
+        NSLog(@"date : %@",date);
+        
+        NSDateComponents *dateComponents = [[NSCalendar currentCalendar]components:NSCalendarUnitYear+NSCalendarUnitMonth+NSCalendarUnitDay+NSCalendarUnitHour+NSCalendarUnitMinute fromDate:date];
+        UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:dateComponents repeats:NO];
+        UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:self.remind.remindID content:content trigger:trigger];
+        
+        [center addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+            if (error != nil) {
+                NSLog(@"Something went wrong: %@",error);
+            } else {
+                NSLog(@"Notification setting success.");
+                NSLog(@"%@",request.identifier);
+            }
+        }];
+
     }
     
     
@@ -220,6 +253,7 @@
     [self presentViewController:pickerController animated:YES completion:nil];
     
 }
+
 #pragma mark - UIImagePickerControllerDelegate
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
     
@@ -248,8 +282,13 @@
         self.dateString = [dateFormatter stringFromDate:date];
     }
     
+    
+    self.pickerTime = time;
     [dateFormatter setDateFormat:@"hh:mm a"];
     self.timeString = [dateFormatter stringFromDate:time];
+    
+    NSLog(@"%@",self.dateString);
+    NSLog(@"%@",self.timeString);
     
     [self.dateLabel setText:[NSString stringWithFormat:@"%@ %@",self.dateString,self.timeString]];
     

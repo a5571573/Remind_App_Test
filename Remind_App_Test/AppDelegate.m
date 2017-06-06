@@ -8,7 +8,8 @@
 
 #import "AppDelegate.h"
 
-@interface AppDelegate ()
+@import UserNotifications;
+@interface AppDelegate ()<UNUserNotificationCenterDelegate>
 
 @end
 
@@ -16,10 +17,21 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    UNAuthorizationOptions options = UNAuthorizationOptionAlert+UNAuthorizationOptionSound+UNAuthorizationOptionBadge;
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    [center requestAuthorizationWithOptions:options completionHandler:^(BOOL granted, NSError * _Nullable error) {
+        if(!error && granted){
+            // 用戶點擊允許
+        } else {
+            // 用戶點擊不允許
+        }
+    }];
+    center.delegate = self;
+    
+    
     return YES;
 }
-
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

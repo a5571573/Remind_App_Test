@@ -33,9 +33,13 @@
 //    self.timeLabel.layer.masksToBounds = YES;
     
     self.timePicker.backgroundColor = [UIColor colorWithRed:(231/255.0) green:(226/255.0) blue:(218/255.0) alpha:1.0];
-   
-    [self.calendar selectDate:self.date scrollToDate:YES];
-    [self.timePicker setDate:self.time animated:YES];
+    
+        [self.calendar selectDate:self.date scrollToDate:YES];
+        [self.timePicker setDate:self.time animated:YES];
+        
+
+    
+    
 
     
     
@@ -60,9 +64,8 @@
 }
 
 -(void)calendar:(FSCalendar *)calendar didSelectDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition{
-    
+
     self.date = date;
-    
 }
 
 /*

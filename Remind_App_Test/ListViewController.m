@@ -12,10 +12,11 @@
 #import "DetailViewController.h"
 #import "AppDelegate.h"
 
+@import UserNotifications;
 @import Photos;
 @import CoreData;
 
-@interface ListViewController ()<UITableViewDelegate,UITableViewDataSource,DetailViewControllerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface ListViewController ()<UITableViewDelegate,UITableViewDataSource,DetailViewControllerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UNUserNotificationCenterDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -80,6 +81,8 @@
     [super viewDidLoad];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    center.delegate = self;
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor colorWithRed:(255/255.0) green:(255/255.0) blue:(255/255.0) alpha:1.0];
     NSLog(@"%@",NSHomeDirectory());
@@ -198,6 +201,30 @@
     pickerController.delegate = self;
     [self presentViewController:pickerController animated:YES completion:nil];
 }
+#pragma mark - UNUserNotificationCenterDelegate
+-(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler{
+    
+    
+    
+    
+    completionHandler();
+    
+    
+}
+-(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler{
+    completionHandler(UNAuthorizationOptionAlert+UNAuthorizationOptionSound+UNAuthorizationOptionBadge);
+    NSLog(@"%@",notification);
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:notification.request.content.title message:notification.request.content.body preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *correct = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        return ;
+    }];
+
+    [alert addAction:correct];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
 #pragma mark - UIImagePickerControllerDelegate
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
     
@@ -261,7 +288,7 @@
 
 - (IBAction)switchChanged:(UISwitch *)sender {
     
-    
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
     
     Remind *remind = self.reminds[sender.tag-1];
     
@@ -269,12 +296,47 @@
     
     if (sender.on) {
         remind.switchOnOff = YES;
+        [self addNotification:remind];
     } else {
         remind.switchOnOff = NO;
+        [center removePendingNotificationRequestsWithIdentifiers:@[remind.remindID]];
     }
     
     [self saveToCoredata];
     
+}
+-(void) addNotification:(Remind *)remind{
+    
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc]init];
+    content.title  = [NSString stringWithString:remind.title];
+    if ([remind.detail isEqualToString:@""]) {
+        content.body = @"Notification";
+    } else{
+        content.body = [NSString stringWithFormat:@"%@",remind.detail];
+    }
+    content.sound = [UNNotificationSound defaultSound];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"yyyy/MM/dd hh:mm a"];
+    
+    NSDate *date = [dateFormatter dateFromString:[NSString stringWithFormat:@"%@ %@",remind.date,remind.time]];
+    //NSDate *correctDate = [NSDate dateWithTimeInterval:60*60*8 sinceDate:date];
+    
+    NSLog(@"date : %@",date);
+    
+    NSDateComponents *dateComponents = [[NSCalendar currentCalendar]components:NSCalendarUnitYear+NSCalendarUnitMonth+NSCalendarUnitDay+NSCalendarUnitHour+NSCalendarUnitMinute fromDate:date];
+    UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:dateComponents repeats:NO];
+    UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:remind.remindID content:content trigger:trigger];
+    
+    [center addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+        if (error != nil) {
+            NSLog(@"Something went wrong: %@",error);
+        } else {
+            NSLog(@"Notification setting success.");
+            NSLog(@"%@",request.identifier);
+        }
+    }];
 }
 // 資料傳遞 ListViewController -> DetailViewController
 #pragma mark - PrepareForSegue

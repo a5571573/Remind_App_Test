@@ -24,6 +24,7 @@
 		4F2594871EE0331100415736 /* ImageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2594861EE0331100415736 /* ImageButton.m */; };
 		4FD8EB471ED6F6D800945125 /* DateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD8EB461ED6F6D800945125 /* DateViewController.m */; };
 		4FF4D2241EE5280C000C60C9 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FF4D2231EE5280C000C60C9 /* Photos.framework */; };
+		4FF4D2281EE55DF9000C60C9 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FF4D2271EE55DF9000C60C9 /* UserNotifications.framework */; };
 		EC30AE149524FD9A6568BDAF /* Pods_Remind_App_Test.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A76159CA3EEC2EB5F9929470 /* Pods_Remind_App_Test.framework */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +55,7 @@
 		4FD8EB451ED6F6D800945125 /* DateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DateViewController.h; path = ../DateViewController.h; sourceTree = "<group>"; };
 		4FD8EB461ED6F6D800945125 /* DateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DateViewController.m; path = ../DateViewController.m; sourceTree = "<group>"; };
 		4FF4D2231EE5280C000C60C9 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		4FF4D2271EE55DF9000C60C9 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		9E8D5BC57864D172528D7E6B /* Pods-Remind_App_Test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Remind_App_Test.release.xcconfig"; path = "Pods/Target Support Files/Pods-Remind_App_Test/Pods-Remind_App_Test.release.xcconfig"; sourceTree = "<group>"; };
 		A76159CA3EEC2EB5F9929470 /* Pods_Remind_App_Test.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Remind_App_Test.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C24B9E19B662A264257E6829 /* Pods-Remind_App_Test.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Remind_App_Test.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Remind_App_Test/Pods-Remind_App_Test.debug.xcconfig"; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FF4D2281EE55DF9000C60C9 /* UserNotifications.framework in Frameworks */,
 				4FF4D2241EE5280C000C60C9 /* Photos.framework in Frameworks */,
 				EC30AE149524FD9A6568BDAF /* Pods_Remind_App_Test.framework in Frameworks */,
 			);
@@ -149,6 +152,7 @@
 		597A6CF984BA8B397EFA3CED /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4FF4D2271EE55DF9000C60C9 /* UserNotifications.framework */,
 				4FF4D2231EE5280C000C60C9 /* Photos.framework */,
 				A76159CA3EEC2EB5F9929470 /* Pods_Remind_App_Test.framework */,
 			);
