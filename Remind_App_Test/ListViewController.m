@@ -325,26 +325,26 @@
     
     //NSLog(@"%ld",sender.tag);
     
+    // When switch changed must be write the image back to the Notification folder.
+    UIImage *image = [remind image];
+    NSData *imageData = UIImageJPEGRepresentation(image, 0.8);
+    NSString *library = [NSHomeDirectory() stringByAppendingPathComponent:@"Library"];
+    NSString *NotificationImage = [library stringByAppendingPathComponent:@"NotificationImage"];
+    NSURL *imageURL = [NSURL fileURLWithPath:[NotificationImage stringByAppendingPathComponent:remind.imageFileName]];
+    [imageData writeToURL:imageURL atomically:YES];
+    
     if (sender.on) {
+        
         remind.switchOnOff = YES;
         [self addNotification:remind];
+        
     } else {
+        
         remind.switchOnOff = NO;
         [center removePendingNotificationRequestsWithIdentifiers:@[remind.remindID]];
         [center removeDeliveredNotificationsWithIdentifiers:@[remind.remindID]];
         
-        // When switch off must be write the image back to the Notification folder.
-        
-        UIImage *image = [remind image];
-        NSData *imageData = UIImageJPEGRepresentation(image, 0.8);
-        
-        NSString *library = [NSHomeDirectory() stringByAppendingPathComponent:@"Library"];
-        NSString *NotificationImage = [library stringByAppendingPathComponent:@"NotificationImage"];
-        NSURL *imageURL = [NSURL fileURLWithPath:[NotificationImage stringByAppendingPathComponent:remind.imageFileName]];
-        [imageData writeToURL:imageURL atomically:YES];
-        
     }
-    
     [self saveToCoredata];
     
 }
@@ -375,8 +375,13 @@
     NSString *NotificationImage = [library stringByAppendingPathComponent:@"NotificationImage"];
     NSURL *imageURL = [NSURL fileURLWithPath:[NotificationImage stringByAppendingPathComponent:remind.imageFileName]];
     
-    UNNotificationAttachment *attachment = [UNNotificationAttachment attachmentWithIdentifier:remind.imageFileName URL:imageURL options:nil error:nil];
-    content.attachments = @[attachment];
+    if ([remind image] != nil) {
+        
+        UNNotificationAttachment *attachment = [UNNotificationAttachment attachmentWithIdentifier:remind.imageFileName URL:imageURL options:nil error:nil];
+        content.attachments = @[attachment];
+        
+    }
+    
     
     UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:remind.remindID content:content trigger:trigger];
     
