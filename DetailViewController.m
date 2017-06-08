@@ -92,7 +92,7 @@
 #pragma mark - Button Action
 - (IBAction)save:(id)sender {
     // 若title跟時間日期未填入，會跳出alert警告使用者
-    if ([self.titleField.text isEqualToString:@""]||[self.dateLabel.text isEqualToString:@"請選取時間"]) {
+    if (self.titleField.text.length == 0||[self.dateLabel.text isEqualToString:@"請選取時間"]) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"注意" message:@"請輸入標題和時間" preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -104,12 +104,18 @@
         [self presentViewController:alert animated:YES completion:nil];
     } else {
         
-        NSData *imageData = UIImageJPEGRepresentation(self.imageView.image, 1);
-        NSString *library = [NSHomeDirectory() stringByAppendingPathComponent:@"Library"];
-        NSString *photos = [library stringByAppendingPathComponent:@"Photos"];
+        NSData *imageData = UIImageJPEGRepresentation(self.imageView.image, 0.8);
+        NSString *documents = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+        NSString *photos = [documents stringByAppendingPathComponent:@"Photos"];
         NSString *filePath = [photos stringByAppendingPathComponent:self.remind.imageFileName];
-        
         [imageData writeToFile:filePath atomically:YES];
+        
+        // Save the image to Notification folder.
+        NSString *library = [NSHomeDirectory() stringByAppendingPathComponent:@"Library"];
+        NSString *NotificationImage = [library stringByAppendingPathComponent:@"NotificationImage"];
+        NSURL *imageURL = [NSURL fileURLWithPath:[NotificationImage stringByAppendingPathComponent:self.remind.imageFileName]];
+        [imageData writeToURL:imageURL atomically:YES];
+        
         // 將檔案寫進相簿裡儲存
         if (self.pickerType) {
             
@@ -139,41 +145,10 @@
         
         [self saveToCoredata];
         [self.delegate didFinshUpdate:self.remind];
-        
         [self.navigationController popViewControllerAnimated:YES];
         
-        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+        [self creatLocalNotification:imageURL];
         
-        UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc]init];
-        content.title  = [NSString stringWithString:self.titleField.text];
-        if ([self.detailTextView.text isEqualToString:@""]) {
-            content.body = @"Notification";
-        } else{
-           content.body = [NSString stringWithFormat:@"%@",self.detailTextView.text];
-        }
-        content.sound = [UNNotificationSound defaultSound];
-        
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-        [dateFormatter setDateFormat:@"yyyy/MM/dd hh:mm a"];
-        
-        NSDate *date = [dateFormatter dateFromString:[NSString stringWithFormat:@"%@ %@",self.dateString,self.timeString]];
-        //NSDate *correctDate = [NSDate dateWithTimeInterval:60*60*8 sinceDate:date];
-        
-        NSLog(@"date : %@",date);
-        
-        NSDateComponents *dateComponents = [[NSCalendar currentCalendar]components:NSCalendarUnitYear+NSCalendarUnitMonth+NSCalendarUnitDay+NSCalendarUnitHour+NSCalendarUnitMinute fromDate:date];
-        UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:dateComponents repeats:NO];
-        UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:self.remind.remindID content:content trigger:trigger];
-        
-        [center addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
-            if (error != nil) {
-                NSLog(@"Something went wrong: %@",error);
-            } else {
-                NSLog(@"Notification setting success.");
-                NSLog(@"%@",request.identifier);
-            }
-        }];
-
     }
     
     
@@ -205,6 +180,56 @@
     
     [self presentViewController:dateVC animated:YES completion:nil];
     
+}
+#pragma mark - Creat LocalNotification
+-(void)creatLocalNotification:(NSURL *)imageURL{
+    
+    // Create localNotification
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc]init];
+    
+    content.title  = [NSString stringWithString:self.titleField.text];
+    if ([self.detailTextView.text isEqualToString:@""]) {
+        content.body = @"Notification";
+    } else{
+        content.body = [NSString stringWithFormat:@"%@",self.detailTextView.text];
+    }
+    content.sound = [UNNotificationSound defaultSound];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"yyyy/MM/dd hh:mm a"];
+    
+    NSDate *date = [dateFormatter dateFromString:[NSString stringWithFormat:@"%@ %@",self.dateString,self.timeString]];
+    //NSDate *correctDate = [NSDate dateWithTimeInterval:60*60*8 sinceDate:date];
+    NSLog(@"date: %@",date);
+    
+    // Set Notification dateFormatter
+    NSDateComponents *dateComponents = [[NSCalendar currentCalendar]components:NSCalendarUnitYear+NSCalendarUnitMonth+NSCalendarUnitDay+NSCalendarUnitHour+NSCalendarUnitMinute fromDate:date];
+    
+    // Add Image to Notification
+    NSLog(@"%@",imageURL);
+    
+    if (self.imageView.image != nil) {
+        
+        UNNotificationAttachment *attachment = [UNNotificationAttachment attachmentWithIdentifier:self.remind.imageFileName URL:imageURL options:0 error:nil];
+        content.attachments = @[attachment];
+        
+    }
+    
+    
+    
+    UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:dateComponents repeats:NO];
+    UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:self.remind.remindID content:content trigger:trigger];
+    
+    [center addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+        if (error != nil) {
+            NSLog(@"Something went wrong: %@",error);
+        } else {
+            NSLog(@"Notification setting success.");
+            
+        }
+    }];
+
 }
 
 - (IBAction)camera:(id)sender {
@@ -243,6 +268,9 @@
     pickerController.delegate = self;
     self.pickerType = YES;
     [self presentViewController:pickerController animated:YES completion:nil];
+    if ([[[UIDevice currentDevice]systemVersion]floatValue]>=8.0) {
+        self.modalPresentationStyle=UIModalPresentationOverCurrentContext;
+    }
 }
 -(void) photoLibrary{
     
@@ -251,6 +279,9 @@
     pickerController.delegate = self;
     self.pickerType = NO;
     [self presentViewController:pickerController animated:YES completion:nil];
+    if ([[[UIDevice currentDevice]systemVersion]floatValue]>=8.0) {
+        self.modalPresentationStyle=UIModalPresentationOverCurrentContext;
+    }
     
 }
 

@@ -22,6 +22,7 @@
 
 @property(nonatomic) NSMutableArray <Remind *>*reminds;
 @property(nonatomic) Remind *photoRemind;
+@property(nonatomic) BOOL pickerType;
 
 @end
 
@@ -56,6 +57,15 @@
         NSLog(@"error %@",error);
     } else {
         self.reminds = [results mutableCopy];
+        for (int i = 0; i<self.reminds.count; i++) {
+            Remind *remind = self.reminds[i];
+            if (remind.title.length == 0 || remind.date.length == 0 || remind.time.length == 0) {
+                [context deleteObject:remind];
+                [self.reminds removeObject:remind];
+                [self saveToCoredata];
+            }
+        }
+        
     }
     
 }
@@ -79,6 +89,8 @@
 #pragma mark - viewDidLoad
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
@@ -147,6 +159,7 @@
     cell.imageButton.remindData = remind;
     
     [cell.imageButton setImage:[remind thumbnailImage] forState:UIControlStateNormal];
+    
     if ([remind thumbnailImage] == nil) {
         [cell.imageButton setImage:[UIImage imageNamed:@"circle.png"] forState:UIControlStateNormal];
     }
@@ -186,12 +199,18 @@
 }
 
 -(void) takePhoto{
+    
     UIImagePickerController *pickerController =[[UIImagePickerController alloc]init];
     pickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
     pickerController.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
     pickerController.showsCameraControls = YES;
     pickerController.delegate = self;
+    self.pickerType = YES;
     [self presentViewController:pickerController animated:YES completion:nil];
+    if ([[[UIDevice currentDevice]systemVersion]floatValue]>=8.0) {
+        self.modalPresentationStyle=UIModalPresentationOverCurrentContext;
+    }
+    
 }
 
 -(void) photoLibrary{
@@ -199,7 +218,12 @@
     UIImagePickerController *pickerController = [[UIImagePickerController alloc]init];
     pickerController.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
     pickerController.delegate = self;
+    self.pickerType = NO;
     [self presentViewController:pickerController animated:YES completion:nil];
+    if ([[[UIDevice currentDevice]systemVersion]floatValue]>=8.0) {
+        self.modalPresentationStyle=UIModalPresentationOverCurrentContext;
+    }
+    
 }
 #pragma mark - UNUserNotificationCenterDelegate
 -(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler{
@@ -213,14 +237,13 @@
 }
 -(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler{
     completionHandler(UNAuthorizationOptionAlert+UNAuthorizationOptionSound+UNAuthorizationOptionBadge);
-    NSLog(@"%@",notification);
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:notification.request.content.title message:notification.request.content.body preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *correct = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         return ;
     }];
-
+    
     [alert addAction:correct];
     [self presentViewController:alert animated:YES completion:nil];
 }
@@ -230,32 +253,40 @@
     
     UIImage *image = info[UIImagePickerControllerOriginalImage];
     
-    NSString *library = [NSHomeDirectory() stringByAppendingPathComponent:@"Library"];
-    NSString *photos = [library stringByAppendingPathComponent:@"Photos"];
+    NSData *imageData = UIImageJPEGRepresentation(image, 0.8);
+    NSString *documents = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+    NSString *photos = [documents stringByAppendingPathComponent:@"Photos"];
     NSString *filePath = [photos stringByAppendingPathComponent:self.photoRemind.imageFileName];
-    
-    NSData *imageData = UIImageJPEGRepresentation(image, 1);
-    
     [imageData writeToFile:filePath atomically:YES];
     
-    PHPhotoLibrary *photoLibrary = [PHPhotoLibrary sharedPhotoLibrary];
+    // Save the image to Notification folder.
+    NSString *library = [NSHomeDirectory() stringByAppendingPathComponent:@"Library"];
+    NSString *NotificationImage = [library stringByAppendingPathComponent:@"NotificationImage"];
+    NSURL *imageURL = [NSURL fileURLWithPath:[NotificationImage stringByAppendingPathComponent:self.photoRemind.imageFileName]];
+    [imageData writeToURL:imageURL atomically:YES];
     
-    [photoLibrary performChanges:^{
+    if (self.pickerType) {
         
-        [PHAssetChangeRequest creationRequestForAssetFromImage:image];
+        PHPhotoLibrary *photoLibrary = [PHPhotoLibrary sharedPhotoLibrary];
         
-    } completionHandler:^(BOOL success, NSError * _Nullable error) {
-        if (success) {
-            NSLog(@"success");
-        } else {
-            NSLog(@"Error : %@",error);
-        }
-    }];
-
+        [photoLibrary performChanges:^{
+            
+            [PHAssetChangeRequest creationRequestForAssetFromImage:image];
+            
+        } completionHandler:^(BOOL success, NSError * _Nullable error) {
+            if (success) {
+                NSLog(@"success");
+            } else {
+                NSLog(@"Error : %@",error);
+            }
+        }];
+    }
     
     NSInteger index = [self.reminds indexOfObject:self.photoRemind];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    
+    [self addNotification:self.photoRemind];
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -300,6 +331,18 @@
     } else {
         remind.switchOnOff = NO;
         [center removePendingNotificationRequestsWithIdentifiers:@[remind.remindID]];
+        [center removeDeliveredNotificationsWithIdentifiers:@[remind.remindID]];
+        
+        // When switch off must be write the image back to the Notification folder.
+        
+        UIImage *image = [remind image];
+        NSData *imageData = UIImageJPEGRepresentation(image, 0.8);
+        
+        NSString *library = [NSHomeDirectory() stringByAppendingPathComponent:@"Library"];
+        NSString *NotificationImage = [library stringByAppendingPathComponent:@"NotificationImage"];
+        NSURL *imageURL = [NSURL fileURLWithPath:[NotificationImage stringByAppendingPathComponent:remind.imageFileName]];
+        [imageData writeToURL:imageURL atomically:YES];
+        
     }
     
     [self saveToCoredata];
@@ -310,7 +353,7 @@
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
     UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc]init];
     content.title  = [NSString stringWithString:remind.title];
-    if ([remind.detail isEqualToString:@""]) {
+    if (remind.detail.length == 0) {
         content.body = @"Notification";
     } else{
         content.body = [NSString stringWithFormat:@"%@",remind.detail];
@@ -327,6 +370,14 @@
     
     NSDateComponents *dateComponents = [[NSCalendar currentCalendar]components:NSCalendarUnitYear+NSCalendarUnitMonth+NSCalendarUnitDay+NSCalendarUnitHour+NSCalendarUnitMinute fromDate:date];
     UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:dateComponents repeats:NO];
+    
+    NSString *library = [NSHomeDirectory() stringByAppendingPathComponent:@"Library"];
+    NSString *NotificationImage = [library stringByAppendingPathComponent:@"NotificationImage"];
+    NSURL *imageURL = [NSURL fileURLWithPath:[NotificationImage stringByAppendingPathComponent:remind.imageFileName]];
+    
+    UNNotificationAttachment *attachment = [UNNotificationAttachment attachmentWithIdentifier:remind.imageFileName URL:imageURL options:nil error:nil];
+    content.attachments = @[attachment];
+    
     UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:remind.remindID content:content trigger:trigger];
     
     [center addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
@@ -334,7 +385,6 @@
             NSLog(@"Something went wrong: %@",error);
         } else {
             NSLog(@"Notification setting success.");
-            NSLog(@"%@",request.identifier);
         }
     }];
 }
@@ -347,7 +397,7 @@
         
         DetailViewController *detailVC = segue.destinationViewController;
         AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-            NSManagedObjectContext *context = [appDelegate persistentContainer].viewContext;
+        NSManagedObjectContext *context = [appDelegate persistentContainer].viewContext;
         
         Remind *remind = [NSEntityDescription insertNewObjectForEntityForName:@"Remind" inManagedObjectContext:context];
         

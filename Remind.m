@@ -20,11 +20,17 @@
 
 -(void)awakeFromInsert{
     
-    NSString *library = [NSHomeDirectory() stringByAppendingPathComponent:@"Library"];
-    NSString *photos = [library stringByAppendingPathComponent:@"Photos"];
+    NSString *documents = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+    NSString *photos = [documents stringByAppendingPathComponent:@"Photos"];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if(![fileManager fileExistsAtPath:photos]){
         [fileManager createDirectoryAtPath:photos withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    // New a folder to be used for localNotification.
+    NSString *library = [NSHomeDirectory() stringByAppendingPathComponent:@"Library"];
+    NSString *NotificationImage = [library stringByAppendingPathComponent:@"NotificationImage"];
+    if(![fileManager fileExistsAtPath:NotificationImage]){
+        [fileManager createDirectoryAtPath:NotificationImage withIntermediateDirectories:YES attributes:nil error:nil];
     }
     
     self.remindID = [[NSUUID UUID] UUIDString];
@@ -33,10 +39,10 @@
 
 -(UIImage *)image{
     
-    NSString *library = [NSHomeDirectory() stringByAppendingPathComponent:@"Library"];
-    NSString *photos = [library stringByAppendingPathComponent:@"Photos"];
+    NSString *documents = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+    NSString *photos = [documents stringByAppendingPathComponent:@"Photos"];
     NSString *filePath = [photos stringByAppendingPathComponent:self.imageFileName];
-    
+
     return [UIImage imageWithContentsOfFile:filePath];
     
 }
@@ -77,8 +83,8 @@
 
 -(void)removeImageModel{
     
-    NSString *library = [NSHomeDirectory() stringByAppendingPathComponent:@"Library"];
-    NSString *photos = [library stringByAppendingPathComponent:@"Photos"];
+    NSString *documents = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+    NSString *photos = [documents stringByAppendingPathComponent:@"Photos"];
     NSString *filePath = [photos stringByAppendingPathComponent:self.imageFileName];
     
     if (filePath) {
