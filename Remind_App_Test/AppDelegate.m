@@ -27,6 +27,17 @@
             // 用戶點擊不允許
         }
     }];
+    
+    UNNotificationAction *moreFiveMin = [UNNotificationAction actionWithIdentifier:@"moreFiveMin" title:@"五分鐘後再提醒我" options:UNNotificationActionOptionAuthenticationRequired];
+    
+    UNNotificationAction *cancel = [UNNotificationAction actionWithIdentifier:@"cancel" title:@"取消" options:UNNotificationActionOptionDestructive];
+    
+    UNNotificationCategory *notificationCategory = [UNNotificationCategory categoryWithIdentifier:@"localNotification" actions:@[moreFiveMin,cancel] intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
+    
+    [center setNotificationCategories:[NSSet setWithObject:notificationCategory]];
+    
+    
+    
     center.delegate = self;
     
     

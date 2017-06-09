@@ -229,16 +229,23 @@
 -(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler{
     
     
-    
-    
     completionHandler();
     
     
 }
 -(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler{
+    
     completionHandler(UNAuthorizationOptionAlert+UNAuthorizationOptionSound+UNAuthorizationOptionBadge);
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:notification.request.content.title message:notification.request.content.body preferredStyle:UIAlertControllerStyleAlert];
+    
+    NSString *documents = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+    NSString *photos = [documents stringByAppendingPathComponent:@"Photos"];
+    NSString *filePath = [photos stringByAppendingPathComponent:notification.request.identifier];
+    UIImage *image = [UIImage imageWithContentsOfFile:filePath];
+    
+    
+    
     
     UIAlertAction *correct = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         return ;
@@ -286,7 +293,10 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     
-    [self addNotification:self.photoRemind];
+    if (self.photoRemind.switchOnOff == YES) {
+        
+         [self addNotification:self.photoRemind];
+    }
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }

@@ -188,6 +188,7 @@
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
     UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc]init];
     
+    
     content.title  = [NSString stringWithString:self.titleField.text];
     if ([self.detailTextView.text isEqualToString:@""]) {
         content.body = @"Notification";
@@ -195,6 +196,8 @@
         content.body = [NSString stringWithFormat:@"%@",self.detailTextView.text];
     }
     content.sound = [UNNotificationSound defaultSound];
+    content.categoryIdentifier = @"localNotification";
+    
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
     [dateFormatter setDateFormat:@"yyyy/MM/dd hh:mm a"];
