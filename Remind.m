@@ -92,6 +92,17 @@
         [fileManager removeItemAtPath:filePath error:nil];
     }
     
+    NSString *library = [NSHomeDirectory() stringByAppendingPathComponent:@"Library"];
+    NSString *NotificationImage = [library stringByAppendingPathComponent:@"NotificationImage"];
+    NSURL *imageURL = [NSURL fileURLWithPath:[NotificationImage stringByAppendingString:self.imageFileName]];
+    
+    if (imageURL) {
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        [fileManager removeItemAtURL:imageURL error:nil];
+    }
+    
+    
+    
 }
 
 @end

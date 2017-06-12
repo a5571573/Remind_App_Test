@@ -227,25 +227,66 @@
 }
 #pragma mark - UNUserNotificationCenterDelegate
 -(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler{
+    Remind *selectRemind;
+    NSInteger index = 0;
     
+    
+    if ([response.actionIdentifier isEqualToString:@"moreFiveMin"]) {
+        
+        UNNotificationContent *content = response.notification.request.content;
+        UNNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:5 repeats:NO];
+        UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:response.notification.request.identifier content:content trigger:trigger];
+        [center addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+            if (error != nil) {
+                NSLog(@"Something went wrong: %@",error);
+            } else {
+                NSLog(@"Notification setting success.");
+            }
+        }];
+        
+    } else if([response.actionIdentifier isEqualToString:@"cancel"]){
+        
+        [center removeDeliveredNotificationsWithIdentifiers:@[response.notification.request.identifier]];
+        for (Remind *remind in self.reminds) {
+            if ([remind.remindID isEqualToString:response.notification.request.identifier]) {
+                selectRemind = remind;
+                index = [self.reminds indexOfObject:remind];
+                break;
+            }
+        }
+        selectRemind.switchOnOff = NO;
+        [self saveToCoredata];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        
+    }
     
     completionHandler();
     
     
 }
 -(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler{
+    Remind *selectRemind;
+    NSInteger index = 0;
+    
+    
+    [center removeDeliveredNotificationsWithIdentifiers:@[notification.request.identifier]];
+    
+    for (Remind *remind in self.reminds) {
+        if ([remind.remindID isEqualToString:notification.request.identifier]) {
+            selectRemind = remind;
+            index = [self.reminds indexOfObject:remind];
+            break;
+        }
+    }
+    selectRemind.switchOnOff = NO;
+    [self saveToCoredata];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     
     completionHandler(UNAuthorizationOptionAlert+UNAuthorizationOptionSound+UNAuthorizationOptionBadge);
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:notification.request.content.title message:notification.request.content.body preferredStyle:UIAlertControllerStyleAlert];
-    
-    NSString *documents = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
-    NSString *photos = [documents stringByAppendingPathComponent:@"Photos"];
-    NSString *filePath = [photos stringByAppendingPathComponent:notification.request.identifier];
-    UIImage *image = [UIImage imageWithContentsOfFile:filePath];
-    
-    
-    
     
     UIAlertAction *correct = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         return ;
@@ -295,7 +336,7 @@
     
     if (self.photoRemind.switchOnOff == YES) {
         
-         [self addNotification:self.photoRemind];
+        [self addNotification:self.photoRemind];
     }
     
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -392,6 +433,7 @@
         
     }
     
+    content.categoryIdentifier = @"localNotification";
     
     UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:remind.remindID content:content trigger:trigger];
     

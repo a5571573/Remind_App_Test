@@ -28,9 +28,9 @@
         }
     }];
     
-    UNNotificationAction *moreFiveMin = [UNNotificationAction actionWithIdentifier:@"moreFiveMin" title:@"五分鐘後再提醒我" options:UNNotificationActionOptionAuthenticationRequired];
+    UNNotificationAction *moreFiveMin = [UNNotificationAction actionWithIdentifier:@"moreFiveMin" title:@"稍後提醒" options:UNNotificationActionOptionAuthenticationRequired];
     
-    UNNotificationAction *cancel = [UNNotificationAction actionWithIdentifier:@"cancel" title:@"取消" options:UNNotificationActionOptionDestructive];
+    UNNotificationAction *cancel = [UNNotificationAction actionWithIdentifier:@"cancel" title:@"關閉通知" options:UNNotificationActionOptionDestructive];
     
     UNNotificationCategory *notificationCategory = [UNNotificationCategory categoryWithIdentifier:@"localNotification" actions:@[moreFiveMin,cancel] intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
     
