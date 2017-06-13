@@ -17,6 +17,7 @@
 		4F1C95E21ED665A80011293F /* RemindTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C95E11ED665A80011293F /* RemindTableViewCell.m */; };
 		4F1C95E51ED667A50011293F /* Remind.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C95E41ED667A50011293F /* Remind.m */; };
 		4F1C95E81ED673AE0011293F /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C95E71ED673AE0011293F /* DetailViewController.m */; };
+		4F1CD2C31EEFFF5D007B0347 /* ImageOperator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1CD2C21EEFFF5D007B0347 /* ImageOperator.m */; };
 		4F20DD6E1EDEB87300C42FFB /* calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F20DD6C1EDEB87300C42FFB /* calendar.png */; };
 		4F20DD711EDEC01200C42FFB /* cancel-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F20DD6F1EDEC01200C42FFB /* cancel-button.png */; };
 		4F20DD721EDEC01200C42FFB /* correct-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F20DD701EDEC01200C42FFB /* correct-button.png */; };
@@ -46,6 +47,8 @@
 		4F1C95E41ED667A50011293F /* Remind.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Remind.m; path = ../Remind.m; sourceTree = "<group>"; };
 		4F1C95E61ED673AE0011293F /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailViewController.h; path = ../DetailViewController.h; sourceTree = "<group>"; };
 		4F1C95E71ED673AE0011293F /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailViewController.m; path = ../DetailViewController.m; sourceTree = "<group>"; };
+		4F1CD2C11EEFFF5D007B0347 /* ImageOperator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageOperator.h; path = ../ImageOperator.h; sourceTree = "<group>"; };
+		4F1CD2C21EEFFF5D007B0347 /* ImageOperator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageOperator.m; path = ../ImageOperator.m; sourceTree = "<group>"; };
 		4F20DD6C1EDEB87300C42FFB /* calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calendar.png; sourceTree = "<group>"; };
 		4F20DD6F1EDEC01200C42FFB /* cancel-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cancel-button.png"; sourceTree = "<group>"; };
 		4F20DD701EDEC01200C42FFB /* correct-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "correct-button.png"; sourceTree = "<group>"; };
@@ -119,6 +122,8 @@
 				4F1C95E41ED667A50011293F /* Remind.m */,
 				4F2594851EE0331100415736 /* ImageButton.h */,
 				4F2594861EE0331100415736 /* ImageButton.m */,
+				4F1CD2C11EEFFF5D007B0347 /* ImageOperator.h */,
+				4F1CD2C21EEFFF5D007B0347 /* ImageOperator.m */,
 				4F1C95CC1ED663E00011293F /* Main.storyboard */,
 				4F1C95D21ED663E00011293F /* Assets.xcassets */,
 				4F1C95D41ED663E00011293F /* LaunchScreen.storyboard */,
@@ -295,6 +300,7 @@
 				4F2594871EE0331100415736 /* ImageButton.m in Sources */,
 				4F1C95C51ED663E00011293F /* main.m in Sources */,
 				4F1C95E81ED673AE0011293F /* DetailViewController.m in Sources */,
+				4F1CD2C31EEFFF5D007B0347 /* ImageOperator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

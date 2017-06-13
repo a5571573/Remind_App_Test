@@ -10,6 +10,7 @@
 #import "ListViewController.h"
 #import "DateViewController.h"
 #import "AppDelegate.h"
+#import "ImageOperator.h"
 
 @import Photos;
 @import UserNotifications;
@@ -111,10 +112,14 @@
         [imageData writeToFile:filePath atomically:YES];
         
         // Save the image to Notification folder.
+        UIImage *rotateImage = [ImageOperator rotateImage:self.imageView.image];
+        
+        NSData *rotateImageData = UIImageJPEGRepresentation(rotateImage, 0.8);
+        
         NSString *library = [NSHomeDirectory() stringByAppendingPathComponent:@"Library"];
         NSString *NotificationImage = [library stringByAppendingPathComponent:@"NotificationImage"];
         NSURL *imageURL = [NSURL fileURLWithPath:[NotificationImage stringByAppendingPathComponent:self.remind.imageFileName]];
-        [imageData writeToURL:imageURL atomically:YES];
+        [rotateImageData writeToURL:imageURL atomically:YES];
         
         // 將檔案寫進相簿裡儲存
         if (self.pickerType) {

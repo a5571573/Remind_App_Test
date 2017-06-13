@@ -10,6 +10,7 @@
 #import "Remind.h"
 #import "RemindTableViewCell.h"
 #import "DetailViewController.h"
+#import "ImageOperator.h"
 #import "AppDelegate.h"
 
 @import UserNotifications;
@@ -308,10 +309,13 @@
     [imageData writeToFile:filePath atomically:YES];
     
     // Save the image to Notification folder.
+    
+    UIImage *rotateImage = [ImageOperator rotateImage:image];
+    NSData *rotateImageData = UIImageJPEGRepresentation(rotateImage, 0.8);
     NSString *library = [NSHomeDirectory() stringByAppendingPathComponent:@"Library"];
     NSString *NotificationImage = [library stringByAppendingPathComponent:@"NotificationImage"];
     NSURL *imageURL = [NSURL fileURLWithPath:[NotificationImage stringByAppendingPathComponent:self.photoRemind.imageFileName]];
-    [imageData writeToURL:imageURL atomically:YES];
+    [rotateImageData writeToURL:imageURL atomically:YES];
     
     if (self.pickerType) {
         
@@ -377,12 +381,12 @@
     //NSLog(@"%ld",sender.tag);
     
     // When switch changed must be write the image back to the Notification folder.
-    UIImage *image = [remind image];
-    NSData *imageData = UIImageJPEGRepresentation(image, 0.8);
+    UIImage *rotateImage = [ImageOperator rotateImage:[remind image]];
+    NSData *rotateImageData = UIImageJPEGRepresentation(rotateImage, 0.8);
     NSString *library = [NSHomeDirectory() stringByAppendingPathComponent:@"Library"];
     NSString *NotificationImage = [library stringByAppendingPathComponent:@"NotificationImage"];
     NSURL *imageURL = [NSURL fileURLWithPath:[NotificationImage stringByAppendingPathComponent:remind.imageFileName]];
-    [imageData writeToURL:imageURL atomically:YES];
+    [rotateImageData writeToURL:imageURL atomically:YES];
     
     if (sender.on) {
         
