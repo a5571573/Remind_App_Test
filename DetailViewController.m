@@ -62,7 +62,7 @@
     [self.dateLabel setText:[NSString stringWithFormat:@"%@ %@",self.remind.date,self.remind.time]];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-
+    
     if (self.remind.date == nil && self.remind.time == nil) {
         [self.dateLabel setText:@"請選取時間"];
     }
@@ -138,7 +138,7 @@
                 }
             }];
         }
-    
+        
         self.remind.title = self.titleField.text;
         self.remind.detail = self.detailTextView.text;
         
@@ -237,7 +237,7 @@
             
         }
     }];
-
+    
 }
 
 - (IBAction)camera:(id)sender {
@@ -251,7 +251,7 @@
         }];
         [alert addAction:takePhoto];
     }
-
+    
     UIAlertAction *photoLibrary = [UIAlertAction actionWithTitle:@"相簿" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self photoLibrary];
     }];
@@ -261,7 +261,7 @@
         return ;
     }];
     [cancel setValue:[UIColor redColor] forKey:@"titleTextColor"];
-
+    
     
     [alert addAction:cancel];
     [self presentViewController:alert animated:YES completion:nil];

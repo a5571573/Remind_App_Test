@@ -234,8 +234,34 @@
     
     if ([response.actionIdentifier isEqualToString:@"moreFiveMin"]) {
         
-        UNNotificationContent *content = response.notification.request.content;
+        
+
+        UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc]init];
+        content.title = response.notification.request.content.title;
+        content.body = response.notification.request.content.body;
+        content.sound = [UNNotificationSound defaultSound];
+        content.categoryIdentifier = @"localNotification";
+        
+        // Move image from Photos to NotificationImage folder.
+        NSString *url = [NSString stringWithFormat:@"%@.jpg",response.notification.request.identifier];
+        NSString *documents = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+        NSString *photos = [documents stringByAppendingPathComponent:@"Photos"];
+        NSString *filePath = [photos stringByAppendingPathComponent:url];
+        
+        UIImage *rotateImage = [ImageOperator rotateImage:[UIImage imageWithContentsOfFile:filePath]];
+        NSData *rotateImageData = UIImageJPEGRepresentation(rotateImage, 0.8);
+        NSString *library = [NSHomeDirectory() stringByAppendingPathComponent:@"Library"];
+        NSString *NotificationImage = [library stringByAppendingPathComponent:@"NotificationImage"];
+        NSURL *imageURL = [NSURL fileURLWithPath:[NotificationImage stringByAppendingPathComponent:url]];
+        [rotateImageData writeToURL:imageURL atomically:YES];
+        
+        // Send new Notification must be prepared the NotificationImage
+        UNNotificationAttachment *attachment = [UNNotificationAttachment attachmentWithIdentifier:url URL:imageURL options:nil error:nil];
+        content.attachments = @[attachment];
+       
+
         UNNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:5 repeats:NO];
+        
         UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:response.notification.request.identifier content:content trigger:trigger];
         [center addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
             if (error != nil) {
