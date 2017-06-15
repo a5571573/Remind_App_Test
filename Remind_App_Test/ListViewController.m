@@ -98,6 +98,10 @@
     center.delegate = self;
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor colorWithRed:(255/255.0) green:(255/255.0) blue:(255/255.0) alpha:1.0];
+    
+    self.tableView.backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"reminderImage.jpeg"]];
+    
+    
     NSLog(@"%@",NSHomeDirectory());
     
     
@@ -157,12 +161,19 @@
     cell.dateLabel.text = remind.date;
     cell.timeLabel.text = remind.time;
     
+    cell.backgroundColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.6];
+    
     cell.imageButton.remindData = remind;
     
     [cell.imageButton setImage:[remind thumbnailImage] forState:UIControlStateNormal];
     
+    cell.imageButton.layer.cornerRadius = 30.0;
+    cell.imageButton.layer.masksToBounds = YES;
+    
+    
+    
     if ([remind thumbnailImage] == nil) {
-        [cell.imageButton setImage:[UIImage imageNamed:@"circle.png"] forState:UIControlStateNormal];
+        [cell.imageButton setImage:[UIImage imageNamed:@"picture.png"] forState:UIControlStateNormal];
     }
     
     return cell;
@@ -234,8 +245,6 @@
     
     if ([response.actionIdentifier isEqualToString:@"moreFiveMin"]) {
         
-        
-
         UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc]init];
         content.title = response.notification.request.content.title;
         content.body = response.notification.request.content.body;
@@ -260,7 +269,7 @@
         content.attachments = @[attachment];
        
 
-        UNNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:5 repeats:NO];
+        UNNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:300 repeats:NO];
         
         UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:response.notification.request.identifier content:content trigger:trigger];
         [center addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {

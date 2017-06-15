@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F15613D1EF226950085B1F6 /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F15613C1EF226950085B1F6 /* camera.png */; };
+		4F15613F1EF229D30085B1F6 /* picture.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F15613E1EF229D30085B1F6 /* picture.png */; };
+		4F1561411EF242940085B1F6 /* calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F1561401EF242940085B1F6 /* calendar.png */; };
+		4F15614B1EF27EDD0085B1F6 /* reminderImage.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 4F15614A1EF27EDD0085B1F6 /* reminderImage.jpeg */; };
 		4F1C95C51ED663E00011293F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C95C41ED663E00011293F /* main.m */; };
 		4F1C95C81ED663E00011293F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C95C71ED663E00011293F /* AppDelegate.m */; };
 		4F1C95CE1ED663E00011293F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4F1C95CC1ED663E00011293F /* Main.storyboard */; };
@@ -18,10 +22,8 @@
 		4F1C95E51ED667A50011293F /* Remind.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C95E41ED667A50011293F /* Remind.m */; };
 		4F1C95E81ED673AE0011293F /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C95E71ED673AE0011293F /* DetailViewController.m */; };
 		4F1CD2C31EEFFF5D007B0347 /* ImageOperator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1CD2C21EEFFF5D007B0347 /* ImageOperator.m */; };
-		4F20DD6E1EDEB87300C42FFB /* calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F20DD6C1EDEB87300C42FFB /* calendar.png */; };
 		4F20DD711EDEC01200C42FFB /* cancel-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F20DD6F1EDEC01200C42FFB /* cancel-button.png */; };
 		4F20DD721EDEC01200C42FFB /* correct-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F20DD701EDEC01200C42FFB /* correct-button.png */; };
-		4F2594841EE016E800415736 /* circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F2594831EE016E800415736 /* circle.png */; };
 		4F2594871EE0331100415736 /* ImageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2594861EE0331100415736 /* ImageButton.m */; };
 		4FD8EB471ED6F6D800945125 /* DateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD8EB461ED6F6D800945125 /* DateViewController.m */; };
 		4FF4D2241EE5280C000C60C9 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FF4D2231EE5280C000C60C9 /* Photos.framework */; };
@@ -30,6 +32,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4F15613C1EF226950085B1F6 /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
+		4F15613E1EF229D30085B1F6 /* picture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = picture.png; sourceTree = "<group>"; };
+		4F1561401EF242940085B1F6 /* calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calendar.png; sourceTree = "<group>"; };
+		4F15614A1EF27EDD0085B1F6 /* reminderImage.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = reminderImage.jpeg; sourceTree = "<group>"; };
 		4F1C95C01ED663E00011293F /* Remind_App_Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Remind_App_Test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F1C95C41ED663E00011293F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4F1C95C61ED663E00011293F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -49,10 +55,8 @@
 		4F1C95E71ED673AE0011293F /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailViewController.m; path = ../DetailViewController.m; sourceTree = "<group>"; };
 		4F1CD2C11EEFFF5D007B0347 /* ImageOperator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageOperator.h; path = ../ImageOperator.h; sourceTree = "<group>"; };
 		4F1CD2C21EEFFF5D007B0347 /* ImageOperator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageOperator.m; path = ../ImageOperator.m; sourceTree = "<group>"; };
-		4F20DD6C1EDEB87300C42FFB /* calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calendar.png; sourceTree = "<group>"; };
 		4F20DD6F1EDEC01200C42FFB /* cancel-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cancel-button.png"; sourceTree = "<group>"; };
 		4F20DD701EDEC01200C42FFB /* correct-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "correct-button.png"; sourceTree = "<group>"; };
-		4F2594831EE016E800415736 /* circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle.png; sourceTree = "<group>"; };
 		4F2594851EE0331100415736 /* ImageButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageButton.h; path = ../ImageButton.h; sourceTree = "<group>"; };
 		4F2594861EE0331100415736 /* ImageButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageButton.m; path = ../ImageButton.m; sourceTree = "<group>"; };
 		4FD8EB451ED6F6D800945125 /* DateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DateViewController.h; path = ../DateViewController.h; sourceTree = "<group>"; };
@@ -146,10 +150,12 @@
 		4F1C95EB1ED6D3D60011293F /* Image */ = {
 			isa = PBXGroup;
 			children = (
-				4F2594831EE016E800415736 /* circle.png */,
+				4F15614A1EF27EDD0085B1F6 /* reminderImage.jpeg */,
+				4F15613E1EF229D30085B1F6 /* picture.png */,
+				4F15613C1EF226950085B1F6 /* camera.png */,
 				4F20DD6F1EDEC01200C42FFB /* cancel-button.png */,
 				4F20DD701EDEC01200C42FFB /* correct-button.png */,
-				4F20DD6C1EDEB87300C42FFB /* calendar.png */,
+				4F1561401EF242940085B1F6 /* calendar.png */,
 			);
 			name = Image;
 			sourceTree = "<group>";
@@ -228,11 +234,13 @@
 			files = (
 				4F20DD721EDEC01200C42FFB /* correct-button.png in Resources */,
 				4F20DD711EDEC01200C42FFB /* cancel-button.png in Resources */,
+				4F1561411EF242940085B1F6 /* calendar.png in Resources */,
+				4F15614B1EF27EDD0085B1F6 /* reminderImage.jpeg in Resources */,
 				4F1C95D61ED663E00011293F /* LaunchScreen.storyboard in Resources */,
-				4F20DD6E1EDEB87300C42FFB /* calendar.png in Resources */,
-				4F2594841EE016E800415736 /* circle.png in Resources */,
 				4F1C95D31ED663E00011293F /* Assets.xcassets in Resources */,
+				4F15613D1EF226950085B1F6 /* camera.png in Resources */,
 				4F1C95CE1ED663E00011293F /* Main.storyboard in Resources */,
+				4F15613F1EF229D30085B1F6 /* picture.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -428,6 +436,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "YuYu-chun.Remind-App-Test";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -441,6 +450,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "YuYu-chun.Remind-App-Test";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

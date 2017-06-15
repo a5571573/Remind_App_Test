@@ -23,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
+
 @property(nonatomic) NSDate *pickerTime;
 @property(nonatomic) NSDate *pickerDate;
 @property(nonatomic) NSString *dateString;
@@ -51,8 +52,9 @@
     
     self.titleField.text = self.remind.title;
     self.detailTextView.text = self.remind.detail;
-    self.imageView.image = [self.remind image];
     
+    self.imageView.image = [self.remind image];
+
     self.imageView.layer.borderWidth = 5.0;
     self.imageView.layer.borderColor = [[UIColor colorWithRed:(71/255.0) green:(65/255.0) blue:(67/255.0) alpha:1.0]CGColor];
     self.imageView.layer.cornerRadius = 5.0;
