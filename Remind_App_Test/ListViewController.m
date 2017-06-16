@@ -12,6 +12,7 @@
 #import "DetailViewController.h"
 #import "ImageOperator.h"
 #import "AppDelegate.h"
+@import GoogleMobileAds;
 
 @import UserNotifications;
 @import Photos;
@@ -24,6 +25,8 @@
 @property(nonatomic) NSMutableArray <Remind *>*reminds;
 @property(nonatomic) Remind *photoRemind;
 @property(nonatomic) BOOL pickerType;
+@property(nonatomic, strong) GADBannerView *bannerView;
+
 
 @end
 
@@ -90,6 +93,16 @@
 #pragma mark - viewDidLoad
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.bannerView = [[GADBannerView alloc]
+                       initWithAdSize:kGADAdSizeBanner];
+    
+    self.bannerView.frame = CGRectMake(0, 300, self.view.bounds.size.width, 100);
+    
+    [self.view addSubview:self.bannerView];
+    self.bannerView.adUnitID = @"ca-app-pub-3940256099942544/2934735716";
+    self.bannerView.rootViewController = self;
+     [self.bannerView loadRequest:[GADRequest request]];
     
     
     self.tableView.delegate = self;
@@ -181,6 +194,8 @@
 
 #pragma mark - Push the thumbnailImage Changed Image
 - (IBAction)photoChanged:(ImageButton *)sender {
+    
+    
     
     self.photoRemind = sender.remindData;
     
@@ -489,6 +504,8 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
+    
+    
     if([segue.identifier isEqualToString:@"addSegue"]){
         
         DetailViewController *detailVC = segue.destinationViewController;
@@ -523,6 +540,8 @@
 // 資料傳遞 DetailViewController -> ListViewController
 #pragma mark - didFinshUpdate
 -(void)didFinshUpdate:(Remind *)remind{
+    
+    
     
     NSInteger index = [self.reminds indexOfObject:remind];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];

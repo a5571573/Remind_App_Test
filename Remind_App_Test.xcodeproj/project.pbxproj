@@ -25,6 +25,7 @@
 		4F20DD711EDEC01200C42FFB /* cancel-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F20DD6F1EDEC01200C42FFB /* cancel-button.png */; };
 		4F20DD721EDEC01200C42FFB /* correct-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F20DD701EDEC01200C42FFB /* correct-button.png */; };
 		4F2594871EE0331100415736 /* ImageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2594861EE0331100415736 /* ImageButton.m */; };
+		4F266B261EF3C15D0071EA91 /* launchImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F266B251EF3C15D0071EA91 /* launchImage.png */; };
 		4FD8EB471ED6F6D800945125 /* DateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD8EB461ED6F6D800945125 /* DateViewController.m */; };
 		4FF4D2241EE5280C000C60C9 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FF4D2231EE5280C000C60C9 /* Photos.framework */; };
 		4FF4D2281EE55DF9000C60C9 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FF4D2271EE55DF9000C60C9 /* UserNotifications.framework */; };
@@ -59,6 +60,7 @@
 		4F20DD701EDEC01200C42FFB /* correct-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "correct-button.png"; sourceTree = "<group>"; };
 		4F2594851EE0331100415736 /* ImageButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageButton.h; path = ../ImageButton.h; sourceTree = "<group>"; };
 		4F2594861EE0331100415736 /* ImageButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageButton.m; path = ../ImageButton.m; sourceTree = "<group>"; };
+		4F266B251EF3C15D0071EA91 /* launchImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launchImage.png; sourceTree = "<group>"; };
 		4FD8EB451ED6F6D800945125 /* DateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DateViewController.h; path = ../DateViewController.h; sourceTree = "<group>"; };
 		4FD8EB461ED6F6D800945125 /* DateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DateViewController.m; path = ../DateViewController.m; sourceTree = "<group>"; };
 		4FF4D2231EE5280C000C60C9 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
@@ -129,8 +131,8 @@
 				4F1CD2C11EEFFF5D007B0347 /* ImageOperator.h */,
 				4F1CD2C21EEFFF5D007B0347 /* ImageOperator.m */,
 				4F1C95CC1ED663E00011293F /* Main.storyboard */,
-				4F1C95D21ED663E00011293F /* Assets.xcassets */,
 				4F1C95D41ED663E00011293F /* LaunchScreen.storyboard */,
+				4F1C95D21ED663E00011293F /* Assets.xcassets */,
 				4F1C95D71ED663E00011293F /* Info.plist */,
 				4F1C95CF1ED663E00011293F /* Remind_App_Test.xcdatamodeld */,
 				4F1C95EB1ED6D3D60011293F /* Image */,
@@ -150,6 +152,7 @@
 		4F1C95EB1ED6D3D60011293F /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				4F266B251EF3C15D0071EA91 /* launchImage.png */,
 				4F15614A1EF27EDD0085B1F6 /* reminderImage.jpeg */,
 				4F15613E1EF229D30085B1F6 /* picture.png */,
 				4F15613C1EF226950085B1F6 /* camera.png */,
@@ -232,6 +235,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F266B261EF3C15D0071EA91 /* launchImage.png in Resources */,
 				4F20DD721EDEC01200C42FFB /* correct-button.png in Resources */,
 				4F20DD711EDEC01200C42FFB /* cancel-button.png in Resources */,
 				4F1561411EF242940085B1F6 /* calendar.png in Resources */,

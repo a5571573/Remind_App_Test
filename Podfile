@@ -6,6 +6,7 @@ project 'Remind_App_Test.xcodeproj'
 target 'Remind_App_Test' do
  use_frameworks!
 pod 'FSCalendar'
+pod 'Firebase/AdMob'
   # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
   
 

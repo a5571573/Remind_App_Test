@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
+		<key>GoogleToolboxForMac.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
 		<key>Pods-Remind_App_Test.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -17,7 +22,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>00103D6C821BE85971C563025527BA5D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>14778707473561478AE208F172D85A08</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>398B51ADC38BDD4840B69A41CC42CEBB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
