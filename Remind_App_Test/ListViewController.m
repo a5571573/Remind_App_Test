@@ -18,7 +18,7 @@
 @import Photos;
 @import CoreData;
 
-@interface ListViewController ()<UITableViewDelegate,UITableViewDataSource,DetailViewControllerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UNUserNotificationCenterDelegate>
+@interface ListViewController ()<UITableViewDelegate,UITableViewDataSource,DetailViewControllerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UNUserNotificationCenterDelegate,GADBannerViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -26,6 +26,7 @@
 @property(nonatomic) Remind *photoRemind;
 @property(nonatomic) BOOL pickerType;
 @property(nonatomic, strong) GADBannerView *bannerView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topLayout;
 
 
 @end
@@ -97,13 +98,13 @@
     self.bannerView = [[GADBannerView alloc]
                        initWithAdSize:kGADAdSizeBanner];
     
-    self.bannerView.frame = CGRectMake(0, 300, self.view.bounds.size.width, 100);
+    //self.bannerView.frame = CGRectMake(0,700, self.view.bounds.size.width, 100);
     
-    [self.view addSubview:self.bannerView];
+    
     self.bannerView.adUnitID = @"ca-app-pub-3940256099942544/2934735716";
     self.bannerView.rootViewController = self;
+    self.bannerView.delegate = self;
      [self.bannerView loadRequest:[GADRequest request]];
-    
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -120,10 +121,25 @@
     
 }
 
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+#pragma mark - GADBannerViewDelegate
+-(void)adViewDidReceiveAd:(GADBannerView *)bannerView{
+    
+    self.topLayout.active = NO;
+    [self.view addSubview:self.bannerView];
+    self.bannerView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.bannerView.topAnchor constraintEqualToAnchor:self.topLayoutGuide.bottomAnchor].active = YES;
+    [self.bannerView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
+    [self.bannerView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor].active = YES;
+    [self.bannerView.bottomAnchor constraintEqualToAnchor:self.tableView.topAnchor].active = YES;
+}
+
+
 
 #pragma mark - Delete Remind
 
@@ -194,7 +210,6 @@
 
 #pragma mark - Push the thumbnailImage Changed Image
 - (IBAction)photoChanged:(ImageButton *)sender {
-    
     
     
     self.photoRemind = sender.remindData;
@@ -504,9 +519,8 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    
-    
     if([segue.identifier isEqualToString:@"addSegue"]){
+        
         
         DetailViewController *detailVC = segue.destinationViewController;
         AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;

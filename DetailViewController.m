@@ -12,11 +12,12 @@
 #import "AppDelegate.h"
 #import "ImageOperator.h"
 
+@import GoogleMobileAds;
 @import Photos;
 @import UserNotifications;
 
 
-@interface DetailViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate,UITextViewDelegate,DateViewControllerDelegate>
+@interface DetailViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate,UITextViewDelegate,DateViewControllerDelegate,GADInterstitialDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *titleField;
 @property (weak, nonatomic) IBOutlet UITextView *detailTextView;
@@ -29,7 +30,7 @@
 @property(nonatomic) NSString *dateString;
 @property(nonatomic) NSString *timeString;
 @property(nonatomic) BOOL pickerType;
-
+@property(nonatomic, strong) GADInterstitial *interstitial;
 
 @end
 
@@ -85,8 +86,26 @@
         NSLog(@"%@",self.timeString);
         
     }
+    
+    
+    self.interstitial = [[GADInterstitial alloc]
+                         initWithAdUnitID:@"ca-app-pub-8119560259088202/7728763173"];
+    GADRequest *request = [GADRequest request];
+    [self.interstitial loadRequest:request];
     // Do any additional setup after loading the view.
 }
+- (GADInterstitial *)createAndLoadInterstitial {
+    GADInterstitial *interstitial =
+    [[GADInterstitial alloc] initWithAdUnitID:@"ca-app-pub-8119560259088202/7728763173"];
+    interstitial.delegate = self;
+    [interstitial loadRequest:[GADRequest request]];
+    return interstitial;
+}
+
+- (void)interstitialDidDismissScreen:(GADInterstitial *)interstitial {
+    self.interstitial = [self createAndLoadInterstitial];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -94,6 +113,13 @@
 }
 #pragma mark - Button Action
 - (IBAction)save:(id)sender {
+    
+    
+    
+    if (self.interstitial.isReady) {
+        [self.interstitial presentFromRootViewController:self];
+    }
+    
     // 若title跟時間日期未填入，會跳出alert警告使用者
     if (self.titleField.text.length == 0||[self.dateLabel.text isEqualToString:@"請選取時間"]) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"注意" message:@"請輸入標題和時間" preferredStyle:UIAlertControllerStyleAlert];
@@ -152,12 +178,11 @@
         
         [self saveToCoredata];
         [self.delegate didFinshUpdate:self.remind];
+        
         [self.navigationController popViewControllerAnimated:YES];
         
         [self creatLocalNotification:imageURL];
-        
     }
-    
     
     
 }

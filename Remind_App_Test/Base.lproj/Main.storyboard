@@ -147,6 +147,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="YCK-qC-jOT" id="rXf-yT-3hF"/>
+                        <outlet property="topLayout" destination="2YH-tA-qj2" id="8DT-1j-t40"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
