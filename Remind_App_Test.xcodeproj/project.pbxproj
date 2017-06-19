@@ -186,6 +186,7 @@
 				4F1C95BE1ED663E00011293F /* Resources */,
 				8F9E8319EF91CE3AAB60FA65 /* [CP] Embed Pods Frameworks */,
 				3104F2FC16CA24E78394A89A /* [CP] Copy Pods Resources */,
+				4FF252AC1EF77705000B5B6A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -265,6 +266,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Remind_App_Test/Pods-Remind_App_Test-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		4FF252AC1EF77705000B5B6A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 239e8e9d969c8b554020336a6f39257fd765ee49 d0764a1339cf119fea3efb783396109bb9e14df331a8896ab88dce0a522073d3";
 		};
 		8F9E8319EF91CE3AAB60FA65 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;

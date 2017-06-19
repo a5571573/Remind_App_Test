@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 @import Firebase;
 
 
@@ -19,6 +21,8 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+        [Fabric with:@[[Crashlytics class]]];
     
     // Use Firebase library to configure APIs.
     //[FIRApp configure];

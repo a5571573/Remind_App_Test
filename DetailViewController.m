@@ -92,7 +92,7 @@
                          initWithAdUnitID:@"ca-app-pub-8119560259088202/7728763173"];
     GADRequest *request = [GADRequest request];
     [self.interstitial loadRequest:request];
-    // Do any additional setup after loading the view.
+    
 }
 - (GADInterstitial *)createAndLoadInterstitial {
     GADInterstitial *interstitial =

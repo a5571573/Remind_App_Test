@@ -95,13 +95,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // Add bannerView to show Ad
     self.bannerView = [[GADBannerView alloc]
                        initWithAdSize:kGADAdSizeBanner];
     
-    //self.bannerView.frame = CGRectMake(0,700, self.view.bounds.size.width, 100);
-    
-    
-    self.bannerView.adUnitID = @"ca-app-pub-3940256099942544/2934735716";
+    self.bannerView.adUnitID = @"ca-app-pub-8119560259088202/3061010378";
     self.bannerView.rootViewController = self;
     self.bannerView.delegate = self;
      [self.bannerView loadRequest:[GADRequest request]];
@@ -138,8 +136,6 @@
     [self.bannerView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor].active = YES;
     [self.bannerView.bottomAnchor constraintEqualToAnchor:self.tableView.topAnchor].active = YES;
 }
-
-
 
 #pragma mark - Delete Remind
 
