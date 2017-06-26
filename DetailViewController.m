@@ -89,14 +89,14 @@
     
     
     self.interstitial = [[GADInterstitial alloc]
-                         initWithAdUnitID:@"ca-app-pub-8119560259088202/7728763173"];
+                         initWithAdUnitID:@"ca-app-pub-8119560259088202/6056345976"];
     GADRequest *request = [GADRequest request];
     [self.interstitial loadRequest:request];
     
 }
 - (GADInterstitial *)createAndLoadInterstitial {
     GADInterstitial *interstitial =
-    [[GADInterstitial alloc] initWithAdUnitID:@"ca-app-pub-8119560259088202/7728763173"];
+    [[GADInterstitial alloc] initWithAdUnitID:@"ca-app-pub-8119560259088202/6056345976"];
     interstitial.delegate = self;
     [interstitial loadRequest:[GADRequest request]];
     return interstitial;
@@ -114,9 +114,10 @@
 #pragma mark - Button Action
 - (IBAction)save:(id)sender {
     
+    NSInteger number = arc4random()/10;
     
     
-    if (self.interstitial.isReady) {
+    if (self.interstitial.isReady && number == 1) {
         [self.interstitial presentFromRootViewController:self];
     }
     

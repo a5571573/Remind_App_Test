@@ -102,7 +102,7 @@
     self.bannerView.adUnitID = @"ca-app-pub-8119560259088202/3061010378";
     self.bannerView.rootViewController = self;
     self.bannerView.delegate = self;
-     [self.bannerView loadRequest:[GADRequest request]];
+    [self.bannerView loadRequest:[GADRequest request]];
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;

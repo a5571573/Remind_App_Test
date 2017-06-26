@@ -27,7 +27,7 @@
     // Use Firebase library to configure APIs.
     //[FIRApp configure];
     // Initialize the Google Mobile Ads SDK.
-    [GADMobileAds configureWithApplicationID:@"ca-app-pub-3940256099942544~1458002511"];
+    [GADMobileAds configureWithApplicationID:@"ca-app-pub-8119560259088202~1584277172"];
     
     UNAuthorizationOptions options = UNAuthorizationOptionAlert+UNAuthorizationOptionSound+UNAuthorizationOptionBadge;
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
